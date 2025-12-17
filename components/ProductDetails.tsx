@@ -82,11 +82,8 @@ export default function ProductDetails({
                     rel="noopener noreferrer"
                     className="block w-full bg-stone-900 hover:bg-stone-800 text-white text-center font-semibold py-4 px-8 uppercase tracking-wider text-sm transition-colors duration-200"
                 >
-                    WhatsApp'tan Fiyat Al
+                    Randevu Oluştur
                 </a>
-                <button className="w-full border-2 border-stone-900 hover:bg-stone-900 hover:text-white text-stone-900 text-center font-semibold py-4 px-8 uppercase tracking-wider text-sm transition-all duration-200">
-                    Tasarımcıdan Randevu Al
-                </button>
             </div>
 
             {/* Accordions */}
@@ -98,7 +95,7 @@ export default function ProductDetails({
                             onClick={() => toggleAccordion('dimensions')}
                             className="w-full flex items-center justify-between py-4 text-left"
                         >
-                            <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Ürün Ölçüleri</span>
+                            <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Teknik Detaylar</span>
                             <ChevronDown
                                 className={`w-5 h-5 transition-transform ${openAccordion === 'dimensions' ? 'rotate-180' : ''
                                     }`}
@@ -121,7 +118,7 @@ export default function ProductDetails({
                             onClick={() => toggleAccordion('materials')}
                             className="w-full flex items-center justify-between py-4 text-left"
                         >
-                            <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Materyal Bigi</span>
+                            <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Malzemeler ve Özellikleri</span>
                             <ChevronDown
                                 className={`w-5 h-5 transition-transform ${openAccordion === 'materials' ? 'rotate-180' : ''
                                     }`}
@@ -131,6 +128,8 @@ export default function ProductDetails({
                             <div className="pb-4 space-y-2 text-stone-700">
                                 {fabricType && <p>Kumaş: {fabricType}</p>}
                                 {material && <p>Malzeme: {material}</p>}
+                                <p>✓ Temizlemesi kolay</p>
+                                <p>✓ Evcil hayvan dostu</p>
                             </div>
                         )}
                     </div>
@@ -153,24 +152,31 @@ export default function ProductDetails({
                             <p>✓ Ücretsiz teslimat ve kurulum</p>
                             <p>✓ Teslimat süresi: 15-20 iş günü</p>
                             <p>✓ Profesyonel montaj ekibi</p>
+                            <p>✓ 2 Yıl garanti</p>
                         </div>
                     )}
                 </div>
-            </div>
 
-            {/* Trust Icons */}
-            <div className="grid grid-cols-3 gap-4 pt-6">
-                <div className="text-center">
-                    <Shield className="w-8 h-8 mx-auto mb-2 text-stone-700" strokeWidth={1.5} />
-                    <p className="text-xs text-stone-600">2 Yıl Garanti</p>
-                </div>
-                <div className="text-center">
-                    <Truck className="w-8 h-8 mx-auto mb-2 text-stone-700" strokeWidth={1.5} />
-                    <p className="text-xs text-stone-600">Ücretsiz Kurulum</p>
-                </div>
-                <div className="text-center">
-                    <Ruler className="w-8 h-8 mx-auto mb-2 text-stone-700" strokeWidth={1.5} />
-                    <p className="text-xs text-stone-600">Özel Ölçü</p>
+                {/* Why Yorgancioglu */}
+                <div className="border-b border-stone-200">
+                    <button
+                        onClick={() => toggleAccordion('why')}
+                        className="w-full flex items-center justify-between py-4 text-left"
+                    >
+                        <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Neden Yorgancıoğlu?</span>
+                        <ChevronDown
+                            className={`w-5 h-5 transition-transform ${openAccordion === 'why' ? 'rotate-180' : ''
+                                }`}
+                        />
+                    </button>
+                    {openAccordion === 'why' && (
+                        <div className="pb-4 space-y-2 text-stone-700">
+                            <p>✓ 1985'ten beri kaliteli mobilya üretimi</p>
+                            <p>✓ Özel tasarım ve ölçü desteği</p>
+                            <p>✓ Yüksek kalite malzemeler</p>
+                            <p>✓ Uzman ekip danışmanlığı</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
