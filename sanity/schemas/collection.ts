@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'next-sanity'
+import { defineType, defineField } from 'sanity'
 
 export const collectionType = defineType({
     name: 'collection',
