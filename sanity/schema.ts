@@ -1,4 +1,4 @@
-import { type SchemaTypeDefinition } from 'next-sanity'
+import { type SchemaTypeDefinition } from 'sanity'
 import { productType } from './schemas/product'
 import { collectionType } from './schemas/collection'
 
