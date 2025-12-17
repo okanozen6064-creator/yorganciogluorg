@@ -1,6 +1,6 @@
 import HeroSlider from '@/components/HeroSlider'
 import CategoryCircles from '@/components/CategoryCircles'
-// import CategoryGrid from '@/components/CategoryGrid'
+import CategoryGrid from '@/components/CategoryGrid'
 import PosterSection from '@/components/PosterSection'
 import FeaturedProducts from '@/components/FeaturedProducts'
 import ReelsSection from '@/components/ReelsSection'
@@ -25,7 +25,7 @@ export default async function HomePage() {
         <div className="bg-stone-50">
             <HeroSlider />
             <CategoryCircles />
-            {/* <CategoryGrid /> Removed as per new design request */}
+            <CategoryGrid />
             <PosterSection />
             {featuredProducts.length > 0 && (
                 <FeaturedProducts products={featuredProducts} />
