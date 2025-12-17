@@ -25,11 +25,13 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
                 {images.map((image, index) => (
                     <div key={index} className="relative w-full aspect-square bg-stone-100">
                         <Image
-                            src={urlFor(image).width(1200).height(1200).url()}
+                            src={urlFor(image).width(2000).height(2000).quality(100).url()}
                             alt={`${productName} - Görsel ${index + 1}`}
                             fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
                             className="object-cover"
                             priority={index === 0}
+                            quality={100}
                         />
                     </div>
                 ))}
@@ -48,10 +50,12 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
                         <SwiperSlide key={index}>
                             <div className="relative w-full aspect-square bg-stone-100">
                                 <Image
-                                    src={urlFor(image).width(800).height(800).url()}
+                                    src={urlFor(image).width(1200).height(1200).quality(100).url()}
                                     alt={`${productName} - Görsel ${index + 1}`}
                                     fill
+                                    sizes="100vw"
                                     className="object-cover"
+                                    quality={100}
                                 />
                             </div>
                         </SwiperSlide>

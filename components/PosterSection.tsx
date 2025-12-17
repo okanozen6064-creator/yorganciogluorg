@@ -9,7 +9,7 @@ export default function PosterSection() {
             {/* Parallax Image */}
             <div className="absolute inset-0">
                 <Image
-                    src="/images/poster-banner.jpg"
+                    src="/images/slide4.jpg"
                     alt="Yorgancıoğlu Mobilya"
                     fill
                     className="object-cover"

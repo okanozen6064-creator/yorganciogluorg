@@ -50,10 +50,12 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
                                     <div className="relative aspect-square overflow-hidden bg-stone-200 mb-4">
                                         {product.images && product.images[0] && (
                                             <Image
-                                                src={urlFor(product.images[0]).width(600).height(600).url()}
+                                                src={urlFor(product.images[0]).width(1000).height(1000).quality(100).url()}
                                                 alt={product.title}
                                                 fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                                quality={90}
                                             />
                                         )}
                                     </div>
