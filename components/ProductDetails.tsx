@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ChevronDown, Shield, Truck, Ruler, MessageCircle } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 interface ProductDetailsProps {
     title: string
