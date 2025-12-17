@@ -57,7 +57,7 @@ export default function CategoryCircles() {
                 {/* Scroll Container */}
                 <div
                     ref={scrollContainerRef}
-                    className="flex overflow-x-auto pb-8 pt-4 gap-8 md:gap-12 md:justify-center scrollbar-hide snap-x"
+                    className="flex overflow-x-auto pb-4 pt-4 gap-4 md:gap-8 md:justify-center scrollbar-hide snap-x"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     {categories.map((category, index) => (
@@ -69,9 +69,9 @@ export default function CategoryCircles() {
                             transition={{ delay: index * 0.1, duration: 0.5 }}
                             className="flex flex-col items-center flex-shrink-0 snap-center group cursor-pointer"
                         >
-                            <Link href={category.href} className="flex flex-col items-center gap-4">
+                            <Link href={category.href} className="flex flex-col items-center gap-3">
                                 {/* Circle Image */}
-                                <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full p-1 border border-stone-200 group-hover:border-[#D4AF37] transition-colors duration-500">
+                                <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full p-1 border border-stone-200 group-hover:border-[#D4AF37] transition-colors duration-500">
                                     <div className="relative w-full h-full rounded-full overflow-hidden">
                                         <Image
                                             src={category.image}
