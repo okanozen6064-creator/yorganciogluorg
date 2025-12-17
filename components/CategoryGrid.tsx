@@ -62,17 +62,21 @@ export default function CategoryGrid() {
                         className="md:col-span-2"
                     >
                         <Link href={categories[0].href}>
-                            <div className="group relative h-[400px] overflow-hidden bg-stone-200">
+                            <div className="group relative h-[450px] overflow-hidden bg-stone-200">
                                 <Image
                                     src={categories[0].image}
                                     alt={categories[0].name}
                                     fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                                <div className="absolute inset-0 flex items-end justify-center p-8">
-                                    <h3 className="font-serif text-3xl md:text-4xl font-bold text-white uppercase tracking-widest group-hover:underline underline-offset-8 transition-all duration-300">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+                                <div className="absolute inset-0 flex flex-col justify-end p-10">
+                                    <span className="text-stone-300 text-xs tracking-[0.3em] font-sans uppercase mb-2 opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                                        Koleksiyon
+                                    </span>
+                                    <h3 className="font-serif text-3xl md:text-5xl text-white uppercase tracking-widest relative inline-block">
                                         {categories[0].name}
+                                        <span className="absolute -bottom-4 left-0 w-0 h-[1px] bg-white transition-all duration-500 group-hover:w-full" />
                                     </h3>
                                 </div>
                             </div>
@@ -86,17 +90,21 @@ export default function CategoryGrid() {
                         transition={{ delay: 0.1 }}
                     >
                         <Link href={categories[1].href}>
-                            <div className="group relative h-[400px] overflow-hidden bg-stone-200">
+                            <div className="group relative h-[450px] overflow-hidden bg-stone-200">
                                 <Image
                                     src={categories[1].image}
                                     alt={categories[1].name}
                                     fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                                <div className="absolute inset-0 flex items-end justify-center p-8">
-                                    <h3 className="font-serif text-3xl md:text-4xl font-bold text-white uppercase tracking-widest group-hover:underline underline-offset-8 transition-all duration-300">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+                                <div className="absolute inset-0 flex flex-col justify-end p-10">
+                                    <span className="text-stone-300 text-xs tracking-[0.3em] font-sans uppercase mb-2 opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                                        Koleksiyon
+                                    </span>
+                                    <h3 className="font-serif text-2xl md:text-3xl text-white uppercase tracking-widest relative inline-block">
                                         {categories[1].name}
+                                        <span className="absolute -bottom-4 left-0 w-0 h-[1px] bg-white transition-all duration-500 group-hover:w-full" />
                                     </h3>
                                 </div>
                             </div>
@@ -113,17 +121,21 @@ export default function CategoryGrid() {
                             transition={{ delay: (index + 2) * 0.1 }}
                         >
                             <Link href={category.href}>
-                                <div className="group relative h-[400px] overflow-hidden bg-stone-200">
+                                <div className="group relative h-[450px] overflow-hidden bg-stone-200">
                                     <Image
                                         src={category.image}
                                         alt={category.name}
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                                    <div className="absolute inset-0 flex items-end justify-center p-8">
-                                        <h3 className="font-serif text-3xl md:text-4xl font-bold text-white uppercase tracking-widest group-hover:underline underline-offset-8 transition-all duration-300">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+                                    <div className="absolute inset-0 flex flex-col justify-end p-10">
+                                        <span className="text-stone-300 text-xs tracking-[0.3em] font-sans uppercase mb-2 opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                                            Koleksiyon
+                                        </span>
+                                        <h3 className="font-serif text-2xl md:text-3xl text-white uppercase tracking-widest relative inline-block">
                                             {category.name}
+                                            <span className="absolute -bottom-4 left-0 w-0 h-[1px] bg-white transition-all duration-500 group-hover:w-full" />
                                         </h3>
                                     </div>
                                 </div>
