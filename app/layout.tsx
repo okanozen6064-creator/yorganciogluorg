@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import CustomCursor from '@/components/CustomCursor'
+import LandingIntro from '@/components/LandingIntro'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({
@@ -26,6 +27,7 @@ export default function RootLayout({
     return (
         <html lang="tr">
             <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+                <LandingIntro />
                 <CustomCursor />
                 <Navbar />
                 <main>{children}</main>
