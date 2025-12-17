@@ -1,8 +1,9 @@
 import HeroSlider from '@/components/HeroSlider'
 import TrustSignals from '@/components/TrustSignals'
+import CategoryGrid from '@/components/CategoryGrid'
+import PosterSection from '@/components/PosterSection'
 import FeaturedProducts from '@/components/FeaturedProducts'
 import ReelsSection from '@/components/ReelsSection'
-import DiscountPopup from '@/components/DiscountPopup'
 import { client } from '@/sanity/lib/client'
 
 async function getFeaturedProducts() {
@@ -21,14 +22,15 @@ export default async function HomePage() {
     const featuredProducts = await getFeaturedProducts()
 
     return (
-        <>
+        <div className="bg-stone-50">
             <HeroSlider />
             <TrustSignals />
+            <CategoryGrid />
+            <PosterSection />
             {featuredProducts.length > 0 && (
                 <FeaturedProducts products={featuredProducts} />
             )}
             <ReelsSection />
-            <DiscountPopup />
-        </>
+        </div>
     )
 }
