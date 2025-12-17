@@ -7,33 +7,28 @@ import { motion } from 'framer-motion'
 const categories = [
     {
         name: 'Koltuk Takımları',
-        image: '/images/category-sofa.jpg',
+        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.40.jpeg',
         href: '/collections/koltuk-takimlari',
-        span: 'col-span-2',
     },
     {
         name: 'Yatak Odası',
-        image: '/images/category-bedroom.jpg',
+        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.43.jpeg',
         href: '/collections/yatak-odasi',
-        span: 'col-span-1',
     },
     {
         name: 'Yemek Odası',
-        image: '/images/category-dining.jpg',
+        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.44.jpeg',
         href: '/collections/yemek-odasi',
-        span: 'col-span-1',
     },
     {
         name: 'Oturma Grupları',
-        image: '/images/category-living.jpg',
+        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.45.jpeg',
         href: '/collections/oturma-gruplari',
-        span: 'col-span-1',
     },
     {
         name: 'Özel Tasarım',
-        image: '/images/category-custom.jpg',
+        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.47.jpeg',
         href: '/collections/ozel-tasarim',
-        span: 'col-span-1',
     },
 ]
 
@@ -56,31 +51,76 @@ export default function CategoryGrid() {
                     </p>
                 </motion.div>
 
-                {/* Bento Grid */}
+                {/* Grid - 2 Rows x Variable Columns */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {categories.map((category, index) => (
+                    {/* First Row - 2 items (one taking 2 columns) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0 }}
+                        className="md:col-span-2"
+                    >
+                        <Link href={categories[0].href}>
+                            <div className="group relative h-[400px] overflow-hidden bg-stone-200">
+                                <Image
+                                    src={categories[0].image}
+                                    alt={categories[0].name}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                <div className="absolute inset-0 flex items-end justify-center p-8">
+                                    <h3 className="font-serif text-3xl md:text-4xl font-bold text-white uppercase tracking-widest group-hover:underline underline-offset-8 transition-all duration-300">
+                                        {categories[0].name}
+                                    </h3>
+                                </div>
+                            </div>
+                        </Link>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                    >
+                        <Link href={categories[1].href}>
+                            <div className="group relative h-[400px] overflow-hidden bg-stone-200">
+                                <Image
+                                    src={categories[1].image}
+                                    alt={categories[1].name}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                <div className="absolute inset-0 flex items-end justify-center p-8">
+                                    <h3 className="font-serif text-3xl md:text-4xl font-bold text-white uppercase tracking-widest group-hover:underline underline-offset-8 transition-all duration-300">
+                                        {categories[1].name}
+                                    </h3>
+                                </div>
+                            </div>
+                        </Link>
+                    </motion.div>
+
+                    {/* Second Row - 3 equal items */}
+                    {categories.slice(2).map((category, index) => (
                         <motion.div
                             key={category.name}
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className={category.span}
+                            transition={{ delay: (index + 2) * 0.1 }}
                         >
                             <Link href={category.href}>
                                 <div className="group relative h-[400px] overflow-hidden bg-stone-200">
-                                    {/* Image */}
                                     <Image
                                         src={category.image}
                                         alt={category.name}
                                         fill
                                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
-
-                                    {/* Overlay */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                                    {/* Category Name */}
                                     <div className="absolute inset-0 flex items-end justify-center p-8">
                                         <h3 className="font-serif text-3xl md:text-4xl font-bold text-white uppercase tracking-widest group-hover:underline underline-offset-8 transition-all duration-300">
                                             {category.name}

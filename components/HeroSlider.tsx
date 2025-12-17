@@ -7,19 +7,24 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const heroSlides = [
     {
-        image: '/hero/hero1.jpg',
+        image: '/images/slide1.jpg',
         title: 'Zarafet ve Konfor',
         subtitle: 'Evinize değer katan mobilyalar',
     },
     {
-        image: '/hero/hero2.jpg',
+        image: '/images/slider2.jpg',
         title: 'Özel Tasarım Koleksiyonlar',
         subtitle: 'Size özel mobilya çözümleri',
     },
     {
-        image: '/hero/hero3.jpg',
+        image: '/images/slide3.jpg',
         title: 'Kaliteli Yaşam Alanları',
         subtitle: 'Hayalinizdeki evde yaşayın',
+    },
+    {
+        image: '/images/slide4.jpg',
+        title: 'Lüks ve Şıklık',
+        subtitle: 'Her detayda mükemmellik',
     },
 ]
 
@@ -122,8 +127,8 @@ export default function HeroSlider() {
                         key={index}
                         onClick={() => setCurrentSlide(index)}
                         className={`h-[2px] transition-all duration-300 ${index === currentSlide
-                                ? 'bg-white w-12'
-                                : 'bg-white/30 hover:bg-white/50 w-8'
+                            ? 'bg-white w-12'
+                            : 'bg-white/30 hover:bg-white/50 w-8'
                             }`}
                         aria-label={`Slayt ${index + 1}`}
                     />
