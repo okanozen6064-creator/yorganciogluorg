@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 
 const heroSlides = [
     {
@@ -30,109 +30,177 @@ const heroSlides = [
 
 export default function HeroSlider() {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const [isPlaying, setIsPlaying] = useState(true)
+    const timerRef = useRef<NodeJS.Timeout | null>(null)
+    const SLIDE_DURATION = 8000 // 8 seconds
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-        }, 5000)
-
-        return () => clearInterval(timer)
-    }, [])
+        if (isPlaying) {
+            timerRef.current = setInterval(() => {
+                setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+            }, SLIDE_DURATION)
+        }
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current)
+        }
+    }, [isPlaying, currentSlide])
 
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+        resetTimer()
     }
 
     const prevSlide = () => {
         setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+        resetTimer()
     }
 
+    const resetTimer = () => {
+        if (timerRef.current) clearInterval(timerRef.current)
+        if (isPlaying) {
+            timerRef.current = setInterval(() => {
+                setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+            }, SLIDE_DURATION)
+        }
+    }
+
+    const togglePlay = () => setIsPlaying(!isPlaying)
+
     return (
-        <div className="relative h-[70vh] w-full overflow-hidden bg-stone-900">
-            <AnimatePresence mode="wait">
+        <div className="relative h-[85vh] w-full overflow-hidden bg-stone-900">
+            <AnimatePresence mode="popLayout">
                 <motion.div
                     key={currentSlide}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 1 }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
                     className="absolute inset-0"
                 >
-                    {/* Background Image */}
-                    <div className="absolute inset-0">
+                    {/* Background Image with Ken Burns Effect */}
+                    <motion.div
+                        className="absolute inset-0 w-full h-full"
+                        initial={{ scale: 1.1 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: SLIDE_DURATION / 1000 + 2, ease: "linear" }}
+                    >
                         <Image
                             src={heroSlides[currentSlide].image}
                             alt={heroSlides[currentSlide].title}
                             fill
                             className="object-cover"
-                            priority={currentSlide === 0}
+                            priority={true}
                         />
-                        {/* Dark Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="relative h-full flex items-end justify-start px-8 md:px-16 pb-20">
-                        <div className="max-w-3xl">
-                            <motion.h1
-                                initial={{ y: 40, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ delay: 0.3, duration: 0.8 }}
-                                className="font-serif text-5xl md:text-7xl font-bold text-white mb-6 uppercase tracking-widest"
-                            >
-                                {heroSlides[currentSlide].title}
-                            </motion.h1>
-                            <motion.p
-                                initial={{ y: 40, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ delay: 0.5, duration: 0.8 }}
-                                className="font-sans text-lg md:text-xl text-white/90 mb-8 tracking-wide"
-                            >
-                                {heroSlides[currentSlide].subtitle}
-                            </motion.p>
-                            <motion.a
-                                href="/collections"
-                                initial={{ y: 40, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ delay: 0.7, duration: 0.8 }}
-                                className="inline-block border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white hover:text-stone-900 text-white font-semibold px-10 py-4 rounded-none uppercase tracking-wider text-sm transition-all duration-300"
-                            >
-                                Koleksiyonu Keşfedin
-                            </motion.a>
-                        </div>
-                    </div>
+                        {/* Vignette & Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 mix-blend-multiply" />
+                        <div className="absolute inset-0 bg-black/20" />
+                    </motion.div>
                 </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Arrows - Minimal */}
-            <button
-                onClick={prevSlide}
-                className="absolute left-8 top-1/2 -translate-y-1/2 p-3 border border-white/20 hover:bg-white/10 backdrop-blur-sm rounded-none transition-all duration-200 z-10 group"
-                aria-label="Önceki Slayt"
-            >
-                <ChevronLeft className="w-6 h-6 text-white" strokeWidth={1.5} />
-            </button>
-            <button
-                onClick={nextSlide}
-                className="absolute right-8 top-1/2 -translate-y-1/2 p-3 border border-white/20 hover:bg-white/10 backdrop-blur-sm rounded-none transition-all duration-200 z-10 group"
-                aria-label="Sonraki Slayt"
-            >
-                <ChevronRight className="w-6 h-6 text-white" strokeWidth={1.5} />
-            </button>
+            {/* Content Layer */}
+            <div className="relative h-full flex items-center justify-center text-center px-8 z-10">
+                <div className="max-w-5xl overflow-hidden">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentSlide}
+                            className="flex flex-col items-center"
+                        >
+                            <motion.h2
+                                initial={{ y: 50, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -30, opacity: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                                className="font-serif text-5xl md:text-8xl font-medium text-white mb-6 uppercase tracking-widest leading-tight drop-shadow-2xl"
+                            >
+                                <span className="block text-[#D4AF37] text-2xl md:text-3xl tracking-[0.5em] mb-4 font-sans font-light">
+                                    YORGANCIOĞLU
+                                </span>
+                                {heroSlides[currentSlide].title}
+                            </motion.h2>
 
-            {/* Dots Indicator - Minimal */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-                {heroSlides.map((_, index) => (
+                            <motion.div
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                exit={{ scaleX: 0 }}
+                                transition={{ duration: 0.8, delay: 0.5 }}
+                                className="w-24 h-[1px] bg-white/50 mb-8"
+                            />
+
+                            <motion.p
+                                initial={{ y: 30, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: 20, opacity: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+                                className="font-sans text-lg md:text-2xl text-stone-200 mb-10 tracking-wider font-light max-w-2xl mx-auto"
+                            >
+                                {heroSlides[currentSlide].subtitle}
+                            </motion.p>
+
+                            <motion.a
+                                href="/collections"
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5, delay: 0.8 }}
+                                className="group relative overflow-hidden inline-block border border-white/40 hover:border-white text-white px-12 py-4 uppercase tracking-widest text-sm transition-all duration-300 backdrop-blur-sm"
+                            >
+                                <span className="relative z-10 group-hover:text-stone-900 transition-colors duration-300 font-semibold">
+                                    Koleksiyonu Keşfet
+                                </span>
+                                <div className="absolute inset-0 bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                            </motion.a>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+            </div>
+
+            {/* Controls */}
+            <div className="absolute bottom-12 left-0 right-0 z-20 px-8 md:px-16 flex items-center justify-between">
+                {/* Progress Bar & Dots */}
+                <div className="flex items-center gap-6">
+                    <button onClick={togglePlay} className="text-white/70 hover:text-white transition-colors">
+                        {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                    </button>
+
+                    <div className="flex gap-4">
+                        {heroSlides.map((_, index) => (
+                            <div key={index} className="relative cursor-pointer group" onClick={() => { setCurrentSlide(index); resetTimer(); }}>
+                                <div className={`h-[2px] transition-all duration-500 bg-white/30 group-hover:bg-white/60 ${index === currentSlide ? 'w-16' : 'w-8'}`}>
+                                    {index === currentSlide && isPlaying && (
+                                        <motion.div
+                                            layoutId="progress"
+                                            className="h-full bg-white"
+                                            initial={{ width: 0 }}
+                                            animate={{ width: "100%" }}
+                                            transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <span className="text-white/50 text-xs font-sans tracking-widest">
+                        0{currentSlide + 1} / 0{heroSlides.length}
+                    </span>
+                </div>
+
+                {/* Arrows */}
+                <div className="hidden md:flex gap-2">
                     <button
-                        key={index}
-                        onClick={() => setCurrentSlide(index)}
-                        className={`h-[2px] transition-all duration-300 ${index === currentSlide
-                            ? 'bg-white w-12'
-                            : 'bg-white/30 hover:bg-white/50 w-8'
-                            }`}
-                        aria-label={`Slayt ${index + 1}`}
-                    />
-                ))}
+                        onClick={prevSlide}
+                        className="p-4 border border-white/10 hover:bg-white/10 text-white transition-all rounded-full backdrop-blur-md"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                        onClick={nextSlide}
+                        className="p-4 border border-white/10 hover:bg-white/10 text-white transition-all rounded-full backdrop-blur-md"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
+                </div>
             </div>
         </div>
     )

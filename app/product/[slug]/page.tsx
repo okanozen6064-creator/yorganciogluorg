@@ -69,8 +69,31 @@ export default async function ProductPage({
 }) {
     const product = await getProduct(params.slug)
 
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: product.title,
+        image: product.images?.[0] ? product.images[0] : undefined, // Note: You'd ideally resolve this to a full URL
+        description: product.description,
+        brand: {
+            '@type': 'Brand',
+            name: 'Yorgancıoğlu',
+        },
+        offers: {
+            '@type': 'Offer',
+            url: `https://yorgancioglu.com.tr/product/${product.slug.current}`,
+            priceCurrency: 'TRY',
+            price: product.price,
+            availability: 'https://schema.org/InStock',
+        },
+    }
+
     return (
         <div className="min-h-screen bg-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* Main Product Section - Lazzoni Style */}
             <div className="pt-20 lg:pt-24">
                 <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -116,12 +139,12 @@ export default async function ProductPage({
                         </p>
                     </div>
                     <a
-                        href={`https://wa.me/905XXXXXXXXX?text=Merhaba, ${product.title} ürünü hakkında bilgi almak istiyorum.`}
+                        href={`https://wa.me/905449404910?text=Merhaba, ${product.title} ürünü hakkında bilgi almak istiyorum.`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 bg-stone-900 hover:bg-stone-800 text-white text-center font-semibold py-3 px-6 uppercase tracking-wider text-sm transition-colors"
                     >
-                        Sepete Ekle
+                        Randevu Al
                     </a>
                 </div>
             </div>
