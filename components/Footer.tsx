@@ -9,14 +9,28 @@ export default function Footer() {
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-8 py-24">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-                    {/* Column 1: Brand */}
+                    {/* Column 1: Brand + Map */}
                     <div className="md:col-span-1">
-                        <h2 className="font-serif text-4xl font-bold text-stone-100 uppercase tracking-widest mb-6">
+                        <h2 className="font-serif text-2xl font-bold text-stone-100 uppercase tracking-wider mb-4">
                             Yorgancıoğlu
                         </h2>
-                        <p className="font-sans text-stone-400 leading-relaxed text-sm tracking-wide">
+                        <p className="font-sans text-stone-400 leading-relaxed text-sm tracking-wide mb-6">
                             1985'ten beri lüks mobilya ve ev dekorasyonunda en iyisini sunuyoruz.
                         </p>
+
+                        {/* Google Maps */}
+                        <div className="mt-4">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3064.7102816692536!2d30.72092707569399!3d36.93118897221006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c3871dc516b59d%3A0x1754bae6967466bf!2sYorganc%C4%B1o%C4%9Flu%20mobilya!5e1!3m2!1str!2str!4v1765979253471!5m2!1str!2str"
+                                width="100%"
+                                height="180"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                className="rounded"
+                            />
+                        </div>
                     </div>
 
                     {/* Column 2: Quick Links */}
@@ -58,7 +72,7 @@ export default function Footer() {
                                 <MapPin className="w-5 h-5 text-stone-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                                 <span className="font-sans text-stone-400 text-sm leading-relaxed tracking-wide">
                                     Örnek Mahalle, Mobilya Sok. No: 15<br />
-                                    İstanbul, Türkiye
+                                    Antalya, Türkiye
                                 </span>
                             </li>
                             <li className="flex items-center gap-3">
