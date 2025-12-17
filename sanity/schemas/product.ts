@@ -23,10 +23,18 @@ export const productType = defineType({
         }),
         defineField({
             name: 'images',
-            title: 'Ürün Görselleri',
+            title: 'Ürün Görselleri (Toplu yükleme yapabilirsiniz)',
             type: 'array',
-            of: [{ type: 'image' }],
-            validation: (Rule) => Rule.required().min(1),
+            of: [{
+                type: 'image',
+                options: {
+                    hotspot: true,
+                }
+            }],
+            options: {
+                layout: 'grid',
+            },
+            validation: (Rule) => Rule.required().min(1).max(20).warning('En az 1, en fazla 20 görsel yükleyebilirsiniz'),
         }),
         defineField({
             name: 'description',
@@ -92,6 +100,12 @@ export const productType = defineType({
                     { title: 'Diğer', value: 'diger' },
                 ],
             },
+        }),
+        defineField({
+            name: 'price',
+            title: 'Fiyat (₺)',
+            type: 'number',
+            validation: (Rule) => Rule.min(0),
         }),
         defineField({
             name: 'featured',
