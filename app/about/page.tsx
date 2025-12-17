@@ -1,11 +1,9 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { Shield, Award, Users, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = {
     title: 'Hakkımızda | Yorgancıoğlu',
-    description: '1985'ten beri lüks mobilya üretiminde öncü.Kalite, tasarım ve müşteri memnuniyeti odaklı çalışmalarımız.',
+    description: '1985 yılından beri lüks mobilya üretiminde öncü. Kalite, tasarım ve müşteri memnuniyeti odaklı çalışmalarımız.',
 }
 
 export default function AboutPage() {
@@ -31,7 +29,7 @@ export default function AboutPage() {
                             Hikayemiz
                         </h1>
                         <p className="font-sans text-xl md:text-2xl text-white/90 tracking-wide">
-                            1985'ten beri hayallerinizi gerçeğe dönüştürüyoruz
+                            1985 yılından beri hayallerinizi gerçeğe dönüştürüyoruz
                         </p>
                     </div>
                 </div>
@@ -45,7 +43,7 @@ export default function AboutPage() {
                         40 Yıllık Mükemmellik Yolculuğu
                     </h2>
                     <p className="font-sans text-lg text-stone-700 leading-relaxed mb-6">
-                        Yorgancıoğlu Mobilya, 1985 yılında Antalya'da kurulduğu günden bu yana,
+                        Yorgancıoğlu Mobilya, 1985 yılında Antalya da kurulduğu günden bu yana,
                         lüks mobilya sektöründe kalite ve tasarımın simgesi olmuştur. Dört nesil
                         boyunca süren tutku ve özveriyle, evleri yalnızca yaşam alanları değil,
                         sanat eserleri haline getiriyoruz.
@@ -57,7 +55,7 @@ export default function AboutPage() {
                         nesiller boyu kalıcı değerler haline getirir.
                     </p>
                     <p className="font-sans text-lg text-stone-700 leading-relaxed">
-                        Bugün, binlerce mutlu aile ile kurduğumuz güvenle, Türkiye'nin önde
+                        Bugün, binlerce mutlu aile ile kurduğumuz güvenle, Türkiye nin önde
                         gelen lüks mobilya markalarından biri olmanın gururunu yaşıyoruz.
                         Her projede aynı özveri, her müşteride aynı mükemmellik anlayışı.
                     </p>
