@@ -95,10 +95,10 @@ export default function CategoryGrid() {
 
                                 {/* Typography Outside Image */}
                                 <div className="flex flex-col items-start px-2">
-                                    <span className="font-sans text-xs text-stone-500 uppercase tracking-widest mb-2 border-b border-stone-300 pb-1">
+                                    <span className="font-sans text-xs text-stone-400 uppercase tracking-widest mb-2">
                                         0{index + 1}
                                     </span>
-                                    <h3 className="font-serif text-3xl text-stone-900 mb-2 group-hover:italic transition-all duration-300">
+                                    <h3 className="font-sans text-3xl font-light text-stone-900 mb-2 group-hover:tracking-wide transition-all duration-300">
                                         {category.name}
                                     </h3>
                                     <p className="font-sans text-stone-500 text-sm tracking-wide group-hover:text-stone-800 transition-colors">
