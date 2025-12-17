@@ -27,8 +27,8 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'bg-white/80 backdrop-blur-md shadow-sm'
-                    : 'bg-transparent'
+                ? 'bg-white/80 backdrop-blur-md shadow-sm'
+                : 'bg-transparent'
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,8 +48,8 @@ export default function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 className={`font-sans uppercase tracking-wider text-sm transition-colors duration-200 relative group ${scrolled
-                                        ? 'text-stone-700 hover:text-stone-900'
-                                        : 'text-white/90 hover:text-white'
+                                    ? 'text-stone-700 hover:text-stone-900'
+                                    : 'text-white/90 hover:text-white'
                                     }`}
                             >
                                 {link.label}
@@ -57,12 +57,12 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <a
-                            href="https://wa.me/905XXXXXXXXX"
+                            href="https://wa.me/905449404910"
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`border px-6 py-2.5 uppercase tracking-wider text-sm font-semibold transition-all duration-200 ${scrolled
-                                    ? 'border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white'
-                                    : 'border-white text-white hover:bg-white hover:text-stone-900'
+                                ? 'border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white'
+                                : 'border-white text-white hover:bg-white hover:text-stone-900'
                                 }`}
                         >
                             Randevu Al
@@ -101,7 +101,7 @@ export default function Navbar() {
                                 </Link>
                             ))}
                             <a
-                                href="https://wa.me/905XXXXXXXXX"
+                                href="https://wa.me/905449404910"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white px-4 py-3 uppercase tracking-wider text-sm font-semibold text-center transition-all duration-200"

@@ -77,7 +77,7 @@ export default function ProductDetails({
             {/* CTA Buttons */}
             <div className="space-y-3 pt-4">
                 <a
-                    href={`https://wa.me/905XXXXXXXXX?text=Merhaba, ${title} ürünü hakkında bilgi almak istiyorum.`}
+                    href={`https://wa.me/905449404910?text=Merhaba, ${title} ürünü hakkında bilgi almak istiyorum.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full bg-stone-900 hover:bg-stone-800 text-white text-center font-semibold py-4 px-8 uppercase tracking-wider text-sm transition-colors duration-200"

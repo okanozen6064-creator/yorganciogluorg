@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import CustomCursor from '@/components/CustomCursor'
 import LandingIntro from '@/components/LandingIntro'
+import AiAssistant from '@/components/AiAssistant'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({
@@ -32,7 +33,8 @@ export default function RootLayout({
                 <Navbar />
                 <main>{children}</main>
                 <Footer />
-                <FloatingWhatsApp phoneNumber="905XXXXXXXXX" />
+                <AiAssistant />
+                <FloatingWhatsApp phoneNumber="905449404910" />
             </body>
         </html>
     )

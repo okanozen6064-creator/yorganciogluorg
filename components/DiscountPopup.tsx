@@ -25,7 +25,7 @@ export default function DiscountPopup() {
     }
 
     const handleCTA = () => {
-        window.open('https://wa.me/905XXXXXXXXX', '_blank')
+        window.open('https://wa.me/905449404910', '_blank')
         handleClose()
     }
 

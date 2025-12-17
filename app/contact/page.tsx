@@ -48,8 +48,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-stone-900 mb-2">Telefon</h3>
-                                        <a href="tel:+905XXXXXXXXX" className="font-sans text-stone-600 hover:text-stone-900 transition-colors">
-                                            +90 5XX XXX XX XX
+                                        <a href="tel:+905449404910" className="font-sans text-stone-600 hover:text-stone-900 transition-colors">
+                                            +90 544 940 49 10
                                         </a>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@ export default function ContactPage() {
                                 WhatsApp üzerinden anında bizimle iletişime geçin.
                             </p>
                             <a
-                                href="https://wa.me/905XXXXXXXXX?text=Merhaba, bilgi almak istiyorum."
+                                href="https://wa.me/905449404910?text=Merhaba, bilgi almak istiyorum."
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-block w-full bg-[#25D366] hover:bg-[#20ba5a] text-white text-center font-semibold py-4 px-8 uppercase tracking-wider text-sm transition-colors duration-200"
