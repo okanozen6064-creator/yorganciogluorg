@@ -29,7 +29,16 @@ export const productType = defineType({
                 type: 'image',
                 options: {
                     hotspot: true,
-                }
+                },
+                fields: [
+                    {
+                        name: 'isCover',
+                        title: 'Kapak Fotoğrafı',
+                        type: 'boolean',
+                        initialValue: false,
+                        description: 'Bu görselin ürün listelerinde kapak fotoğrafı olarak görünmesini istiyorsanız işaretleyin.',
+                    }
+                ]
             }],
             options: {
                 layout: 'grid',

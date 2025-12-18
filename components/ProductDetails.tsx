@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Heart, Truck, Shield } from 'lucide-react'
 
 interface ProductDetailsProps {
     title: string
@@ -27,156 +27,163 @@ export default function ProductDetails({
     material,
     category,
 }: ProductDetailsProps) {
-    const [openAccordion, setOpenAccordion] = useState<string | null>(null)
+    const [openAccordion, setOpenAccordion] = useState<string | null>('dimensions')
+    const [isWishlisted, setIsWishlisted] = useState(false)
 
     const toggleAccordion = (id: string) => {
         setOpenAccordion(openAccordion === id ? null : id)
     }
 
-    const formatPrice = (price?: number) => {
-        if (!price) return 'Fiyat için iletişime geçin'
-        return new Intl.NumberFormat('tr-TR', {
-            style: 'currency',
-            currency: 'TRY',
-            minimumFractionDigits: 0,
-        }).format(price)
-    }
-
     return (
-        <div className="lg:sticky lg:top-24 lg:h-fit space-y-6">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-stone-600">
-                <Link href="/" className="hover:text-stone-900">Ana Sayfa</Link>
+        <div className="lg:sticky lg:top-8 h-fit space-y-8">
+            {/* Breadcrumb - Moved here from Page for layout cohesion */}
+            <div className="flex items-center gap-2 text-sm text-stone-500 font-medium">
+                <Link href="/" className="hover:text-stone-900 transition-colors">Ana Sayfa</Link>
                 <span>/</span>
-                {category && (
+                {category ? (
                     <>
-                        <Link href="/collections" className="hover:text-stone-900">{category}</Link>
+                        <Link href="/collections" className="hover:text-stone-900 transition-colors">{category}</Link>
+                        <span>/</span>
+                    </>
+                ) : (
+                    <>
+                        <Link href="/collections" className="hover:text-stone-900 transition-colors">Koleksiyonlar</Link>
                         <span>/</span>
                     </>
                 )}
                 <span className="text-stone-900">{title}</span>
             </div>
 
-            {/* Title */}
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 uppercase tracking-wide">
-                {title}
-            </h1>
+            <div className="space-y-4">
+                <div className="flex items-start justify-between gap-4">
+                    <h1 className="font-serif text-4xl md:text-5xl text-balance leading-tight text-stone-900">
+                        {title}
+                    </h1>
+                    <button
+                        onClick={() => setIsWishlisted(!isWishlisted)}
+                        className="p-2 hover:bg-stone-100 rounded-full transition-colors"
+                        aria-label="Favorilere ekle"
+                    >
+                        <Heart className={`w-6 h-6 ${isWishlisted ? "fill-stone-900 text-stone-900" : "text-stone-900"}`} />
+                    </button>
+                </div>
 
-            {/* Price */}
-            <div className="text-3xl font-bold text-stone-900">
-                {formatPrice(price)}
+                {/* Description */}
+                {description ? (
+                    <p className="font-sans text-stone-600 leading-relaxed text-lg max-w-prose">
+                        {description}
+                    </p>
+                ) : (
+                    <p className="font-sans text-stone-600 leading-relaxed text-lg max-w-prose">
+                        Modern tasarım anlayışı ile üretilen {title}, evinizde şıklığı ve konforu bir araya getiriyor.
+                    </p>
+                )}
             </div>
 
-            {/* Description */}
-            {description && (
-                <p className="font-sans text-stone-700 leading-relaxed text-lg">
-                    {description}
-                </p>
-            )}
-
             {/* CTA Buttons */}
-            <div className="space-y-3 pt-4">
+            <div className="flex gap-3 pt-4">
                 <a
-                    href={`https://wa.me/905449404910?text=Merhaba, ${title} ürünü hakkında bilgi almak istiyorum.`}
+                    href={`https://wa.me/905449404910?text=Merhaba, ${title} ürünü hakkında randevu oluşturmak istiyorum.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full bg-stone-900 hover:bg-stone-800 text-white text-center font-semibold py-4 px-8 uppercase tracking-wider text-sm transition-colors duration-200"
+                    className="flex-1 flex items-center justify-center h-14 bg-stone-900 hover:bg-stone-800 text-stone-50 font-light tracking-wide transition-colors"
                 >
-                    Randevu Oluştur
+                    RANDEVU OLUŞTUR
+                </a>
+                <a
+                    href={`https://wa.me/905449404910?text=Merhaba, ${title} ürünü hakkında detaylı bilgi almak istiyorum.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center h-14 border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-stone-50 font-light tracking-wide transition-all bg-transparent"
+                >
+                    BİLGİ AL
                 </a>
             </div>
 
-            {/* Accordions */}
-            <div className="border-t border-stone-200 pt-6 space-y-2">
-                {/* Dimensions */}
-                {dimensions && (dimensions.width || dimensions.height || dimensions.depth) && (
-                    <div className="border-b border-stone-200">
-                        <button
-                            onClick={() => toggleAccordion('dimensions')}
-                            className="w-full flex items-center justify-between py-4 text-left"
-                        >
-                            <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Teknik Detaylar</span>
-                            <ChevronDown
-                                className={`w-5 h-5 transition-transform ${openAccordion === 'dimensions' ? 'rotate-180' : ''
-                                    }`}
-                            />
-                        </button>
-                        {openAccordion === 'dimensions' && (
-                            <div className="pb-4 space-y-2 text-stone-700">
-                                {dimensions.width && <p>Genişlik: {dimensions.width} cm</p>}
-                                {dimensions.height && <p>Yükseklik: {dimensions.height} cm</p>}
-                                {dimensions.depth && <p>Derinlik: {dimensions.depth} cm</p>}
-                            </div>
-                        )}
+            {/* Features */}
+            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-stone-200">
+                <div className="flex items-start gap-3">
+                    <Truck className="w-5 h-5 text-stone-500 mt-0.5" />
+                    <div>
+                        <div className="text-sm font-medium text-stone-900">Ücretsiz Teslimat</div>
+                        <div className="text-xs text-stone-500">İstanbul içi nakliye</div>
                     </div>
-                )}
+                </div>
+                <div className="flex items-start gap-3">
+                    <Shield className="w-5 h-5 text-stone-500 mt-0.5" />
+                    <div>
+                        <div className="text-sm font-medium text-stone-900">2 Yıl Garanti</div>
+                        <div className="text-xs text-stone-500">Üretim hatalarına karşı</div>
+                    </div>
+                </div>
+            </div>
 
-                {/* Materials */}
-                {(fabricType || material) && (
+            {/* Accordions - Technical Details */}
+            <div className="pt-8 space-y-4">
+                <div className="flex items-center gap-3 mb-6">
+                    <h2 className="font-serif text-2xl text-stone-900">Teknik Detaylar</h2>
+                </div>
+
+                <div className="w-full">
+                    {/* Dimensions */}
+                    {dimensions && (dimensions.width || dimensions.height || dimensions.depth) && (
+                        <div className="border-b border-stone-200">
+                            <button
+                                onClick={() => toggleAccordion('dimensions')}
+                                className="w-full flex items-center justify-between py-4 text-left group"
+                            >
+                                <span className="text-sm font-medium text-stone-900 group-hover:text-stone-700 transition-colors">Ölçüler</span>
+                                <ChevronDown
+                                    className={`w-4 h-4 text-stone-500 transition-transform duration-300 ${openAccordion === 'dimensions' ? 'rotate-180' : ''}`}
+                                />
+                            </button>
+                            <div className={`grid transition-all duration-300 ease-in-out ${openAccordion === 'dimensions' ? 'grid-rows-[1fr] pb-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                                <div className="overflow-hidden space-y-2 text-stone-600 text-sm">
+                                    {dimensions.width && <div className="flex justify-between"><span className="text-stone-500">Genişlik</span><span>{dimensions.width} cm</span></div>}
+                                    {dimensions.height && <div className="flex justify-between"><span className="text-stone-500">Yükseklik</span><span>{dimensions.height} cm</span></div>}
+                                    {dimensions.depth && <div className="flex justify-between"><span className="text-stone-500">Derinlik</span><span>{dimensions.depth} cm</span></div>}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Materials */}
                     <div className="border-b border-stone-200">
                         <button
                             onClick={() => toggleAccordion('materials')}
-                            className="w-full flex items-center justify-between py-4 text-left"
+                            className="w-full flex items-center justify-between py-4 text-left group"
                         >
-                            <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Malzemeler ve Özellikleri</span>
+                            <span className="text-sm font-medium text-stone-900 group-hover:text-stone-700 transition-colors">Malzeme & Bakım</span>
                             <ChevronDown
-                                className={`w-5 h-5 transition-transform ${openAccordion === 'materials' ? 'rotate-180' : ''
-                                    }`}
+                                className={`w-4 h-4 text-stone-500 transition-transform duration-300 ${openAccordion === 'materials' ? 'rotate-180' : ''}`}
                             />
                         </button>
-                        {openAccordion === 'materials' && (
-                            <div className="pb-4 space-y-2 text-stone-700">
-                                {fabricType && <p>Kumaş: {fabricType}</p>}
-                                {material && <p>Malzeme: {material}</p>}
-                                <p>✓ Temizlemesi kolay</p>
-                                <p>✓ Evcil hayvan dostu</p>
+                        <div className={`grid transition-all duration-300 ease-in-out ${openAccordion === 'materials' ? 'grid-rows-[1fr] pb-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                            <div className="overflow-hidden space-y-2 text-stone-600 text-sm leading-relaxed">
+                                {fabricType && <p><span className="font-medium text-stone-900">Kumaş:</span> {fabricType}</p>}
+                                {material && <p><span className="font-medium text-stone-900">İskelet:</span> {material}</p>}
+                                <p>Nemli bez ile silinebilir. Doğrudan güneş ışığından koruyunuz.</p>
                             </div>
-                        )}
+                        </div>
                     </div>
-                )}
 
-                {/* Delivery */}
-                <div className="border-b border-stone-200">
-                    <button
-                        onClick={() => toggleAccordion('delivery')}
-                        className="w-full flex items-center justify-between py-4 text-left"
-                    >
-                        <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Teslimat & Kurulum</span>
-                        <ChevronDown
-                            className={`w-5 h-5 transition-transform ${openAccordion === 'delivery' ? 'rotate-180' : ''
-                                }`}
-                        />
-                    </button>
-                    {openAccordion === 'delivery' && (
-                        <div className="pb-4 space-y-2 text-stone-700">
-                            <p>✓ Ücretsiz teslimat ve kurulum</p>
-                            <p>✓ Teslimat süresi: 15-20 iş günü</p>
-                            <p>✓ Profesyonel montaj ekibi</p>
-                            <p>✓ 2 Yıl garanti</p>
+                    {/* Delivery */}
+                    <div className="border-b border-stone-200">
+                        <button
+                            onClick={() => toggleAccordion('delivery')}
+                            className="w-full flex items-center justify-between py-4 text-left group"
+                        >
+                            <span className="text-sm font-medium text-stone-900 group-hover:text-stone-700 transition-colors">Teslimat Bilgisi</span>
+                            <ChevronDown
+                                className={`w-4 h-4 text-stone-500 transition-transform duration-300 ${openAccordion === 'delivery' ? 'rotate-180' : ''}`}
+                            />
+                        </button>
+                        <div className={`grid transition-all duration-300 ease-in-out ${openAccordion === 'delivery' ? 'grid-rows-[1fr] pb-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                            <div className="overflow-hidden space-y-2 text-stone-600 text-sm leading-relaxed">
+                                <p>Siparişiniz üzerine özel olarak üretilmektedir. Teslimat süresi ortalama 15-20 iş günüdür. İstanbul içi teslimat ve kurulum ekibimiz tarafından ücretsiz yapılmaktadır.</p>
+                            </div>
                         </div>
-                    )}
-                </div>
-
-                {/* Why Yorgancioglu */}
-                <div className="border-b border-stone-200">
-                    <button
-                        onClick={() => toggleAccordion('why')}
-                        className="w-full flex items-center justify-between py-4 text-left"
-                    >
-                        <span className="font-semibold text-stone-900 uppercase tracking-wide text-sm">Neden Yorgancıoğlu?</span>
-                        <ChevronDown
-                            className={`w-5 h-5 transition-transform ${openAccordion === 'why' ? 'rotate-180' : ''
-                                }`}
-                        />
-                    </button>
-                    {openAccordion === 'why' && (
-                        <div className="pb-4 space-y-2 text-stone-700">
-                            <p>✓ 1985'ten beri kaliteli mobilya üretimi</p>
-                            <p>✓ Özel tasarım ve ölçü desteği</p>
-                            <p>✓ Yüksek kalite malzemeler</p>
-                            <p>✓ Uzman ekip danışmanlığı</p>
-                        </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

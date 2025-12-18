@@ -1,4 +1,5 @@
-import { client } from '@/sanity/lib/client'
+
+import { client, urlFor } from '@/sanity/lib/client'
 import { notFound } from 'next/navigation'
 import ProductGallery from '@/components/ProductGallery'
 import ProductDetails from '@/components/ProductDetails'
@@ -24,20 +25,20 @@ interface Product {
 }
 
 async function getProduct(slug: string): Promise<Product> {
-    const query = `*[_type == "product" && slug.current == $slug][0]{
+    const query = `* [_type == "product" && slug.current == $slug][0]{
     _id,
-    title,
-    slug,
-    images,
-    description,
-    price,
-    dimensions,
-    fabricType,
-    material,
-    category->{
-      name
-    }
-  }`
+        title,
+        slug,
+        images,
+        description,
+        price,
+        dimensions,
+        fabricType,
+        material,
+        category -> {
+            name
+        }
+} `
 
     const product = await client.fetch(query, { slug })
 
@@ -73,7 +74,7 @@ export default async function ProductPage({
         '@context': 'https://schema.org',
         '@type': 'Product',
         name: product.title,
-        image: product.images?.[0] ? product.images[0] : undefined, // Note: You'd ideally resolve this to a full URL
+        image: (product.images?.find((img: any) => img.isCover) || product.images?.[0]) || undefined, // Note: You'd ideally resolve this to a full URL
         description: product.description,
         brand: {
             '@type': 'Brand',
@@ -89,25 +90,25 @@ export default async function ProductPage({
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-stone-50">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            {/* Main Product Section - Lazzoni Style */}
-            <div className="pt-20 lg:pt-24">
-                <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                        {/* Left: Media Gallery (65%) */}
-                        <div className="lg:col-span-8">
+            {/* Main Product Section */}
+            <div className="pt-20 pb-24 lg:pt-32">
+                <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
+                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+                        {/* Left: Media Gallery */}
+                        <div>
                             <ProductGallery
                                 images={product.images}
                                 productName={product.title}
                             />
                         </div>
 
-                        {/* Right: Sticky Info Panel (35%) */}
-                        <div className="lg:col-span-4">
+                        {/* Right: Info Panel */}
+                        <div>
                             <ProductDetails
                                 title={product.title}
                                 price={product.price}
@@ -119,35 +120,55 @@ export default async function ProductPage({
                             />
                         </div>
                     </div>
-                </div>
-            </div>
 
-            {/* Mobile Sticky Add to Cart Bar */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 p-4 z-40">
-                <div className="flex items-center justify-between gap-4">
-                    <div>
-                        <p className="text-sm text-stone-600">Fiyat</p>
-                        <p className="text-xl font-bold text-stone-900">
-                            {product.price
-                                ? new Intl.NumberFormat('tr-TR', {
-                                    style: 'currency',
-                                    currency: 'TRY',
-                                    minimumFractionDigits: 0,
-                                }).format(product.price)
-                                : 'İletişime geçin'
-                            }
-                        </p>
+                    {/* Related Products Section */}
+                    <div className="mt-32 border-t border-stone-200 pt-16">
+                        <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-12 text-balance text-center">İlginizi Çekebilecek Diğer Ürünler</h2>
+                        {/* Ideally fetch real related products here. For now we can use a server component or just placeholder if complex.
+                           But since this is a server component, I can fetch them! */}
+                        <RelatedProducts currentSlug={params.slug} categoryName={product.category?.name} />
                     </div>
-                    <a
-                        href={`https://wa.me/905449404910?text=Merhaba, ${product.title} ürünü hakkında bilgi almak istiyorum.`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 bg-stone-900 hover:bg-stone-800 text-white text-center font-semibold py-3 px-6 uppercase tracking-wider text-sm transition-colors"
-                    >
-                        Randevu Al
-                    </a>
                 </div>
             </div>
         </div>
     )
 }
+
+async function RelatedProducts({ currentSlug, categoryName }: { currentSlug: string, categoryName?: string }) {
+    // Fetch 4 random products, preferably from same category
+    const query = `*[_type == "product" && slug.current != $slug][0...4]{
+        _id,
+        title,
+        slug,
+        images,
+        price
+    }`
+    // If we had category ID we could filter by it. For now random is fine or just latest.
+    const products = await client.fetch(query, { slug: currentSlug })
+
+    if (!products.length) return null
+
+    return (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+            {products.map((product: any) => (
+                <a key={product._id} href={`/product/${product.slug.current}`} className="group block space-y-4">
+                    <div className="bg-stone-100 aspect-square overflow-hidden relative rounded-sm">
+                        {product.images?.[0] && (
+                            <img
+                                src={urlFor(product.images[0]).width(600).height(600).url()}
+                                alt={product.title}
+                                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                            />
+                        )}
+                    </div>
+                    <div className="space-y-1 text-center">
+                        <h3 className="font-serif text-lg text-stone-900 group-hover:text-stone-600 transition-colors">{product.title}</h3>
+                        {/* Optional price display */}
+                        {/* <p className="text-sm text-stone-500">{product.price} TL</p> */}
+                    </div>
+                </a>
+            ))}
+        </div>
+    )
+}
+
