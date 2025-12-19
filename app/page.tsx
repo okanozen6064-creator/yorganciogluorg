@@ -141,15 +141,7 @@ const ComingSoonPage = () => {
                     </div>
                 </motion.div>
 
-                {/* Footer/Brand text */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
-                    className="mt-16 text-sm tracking-[0.2em] text-gray-500 uppercase"
-                >
-                    A N T I G R A V I T Y
-                </motion.div>
+
             </div>
         </div>
     );
