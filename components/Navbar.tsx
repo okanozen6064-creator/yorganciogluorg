@@ -35,14 +35,15 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-28">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0 relative w-80 h-24">
-                        <Image
-                            src="/logo.png"
-                            alt="Yorgancıoğlu"
-                            fill
-                            className="object-contain"
-                            priority
-                        />
+                    <Link href="/" className="flex-shrink-0 group">
+                        <div className="flex flex-col items-center justify-center leading-none">
+                            <span className={`font-cormorant text-5xl md:text-6xl font-bold tracking-tight transition-colors duration-300 ${scrolled ? 'text-[#C41E3A]' : 'text-white group-hover:text-stone-200'}`}>
+                                Yorgancıoğlu
+                            </span>
+                            <span className={`font-serif text-sm md:text-base tracking-[0.4em] uppercase mt-1 transition-colors duration-300 ${scrolled ? 'text-stone-800' : 'text-white/80 group-hover:text-white'}`}>
+                                mobilya
+                            </span>
+                        </div>
                     </Link>
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
