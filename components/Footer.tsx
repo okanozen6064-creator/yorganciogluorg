@@ -71,8 +71,8 @@ export default function Footer() {
                             <li className="flex items-start gap-3">
                                 <MapPin className="w-5 h-5 text-stone-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                                 <span className="font-sans text-stone-400 text-sm leading-relaxed tracking-wide">
-                                    Örnek Mahalle, Mobilya Sok. No: 15<br />
-                                    Antalya, Türkiye
+                                    Sütçüler, Hastane Cd. NO:32<br />
+                                    07320 Kepez/Antalya
                                 </span>
                             </li>
                             <li className="flex items-center gap-3">
