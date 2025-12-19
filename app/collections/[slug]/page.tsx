@@ -1,8 +1,10 @@
 import { client } from '@/sanity/lib/client'
 import Link from 'next/link'
-import Image from 'next/image'
-import { urlFor } from '@/sanity/lib/client'
 import { notFound } from 'next/navigation'
+import { urlFor } from '@/sanity/lib/client'
+
+// Revalidate page every minute
+export const revalidate = 60
 
 interface Product {
     _id: string
@@ -10,38 +12,33 @@ interface Product {
     slug: { current: string }
     images: any[]
     description?: string
+    price?: number
 }
 
-async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
-    const query = `*[_type == "product" && category->slug.current == $categorySlug]{
+interface Category {
+    name: string
+    description?: string
+}
+
+async function getCategory(slug: string): Promise<Category | null> {
+    const query = `*[_type == "collection" && slug.current == $slug][0]{
+        name,
+        description
+    }`
+    return await client.fetch(query, { slug })
+}
+
+async function getProductsByCategory(slug: string): Promise<Product[]> {
+    const query = `*[_type == "product" && category->slug.current == $slug] | order(_createdAt desc) {
     _id,
     title,
     slug,
     images,
-    description
+    description,
+    price
   }`
 
-    return await client.fetch(query, { categorySlug })
-}
-
-async function getAllProducts(): Promise<Product[]> {
-    const query = `*[_type == "product"]{
-    _id,
-    title,
-    slug,
-    images,
-    description
-  }`
-
-    return await client.fetch(query)
-}
-
-const categoryTitles: Record<string, string> = {
-    'koltuk-takimlari': 'Koltuk Takımları',
-    'yatak-odasi': 'Yatak Odası',
-    'yemek-odasi': 'Yemek Odası',
-    'oturma-gruplari': 'Oturma Grupları',
-    'ozel-tasarim': 'Özel Tasarım',
+    return await client.fetch(query, { slug })
 }
 
 export default async function CategoryPage({
@@ -49,73 +46,83 @@ export default async function CategoryPage({
 }: {
     params: { slug: string }
 }) {
-    const categoryTitle = categoryTitles[params.slug] || 'Koleksiyon'
+    // 1. Fetch Category Details to ensure it exists and get dynamic title
+    const category = await getCategory(params.slug)
 
-    // Kategori varsa o kategoriye ait ürünleri, yoksa tüm ürünleri göster
-    let products: Product[] = []
-
-    try {
-        products = await getProductsByCategory(params.slug)
-        products = await getProductsByCategory(params.slug)
-    } catch (error) {
-        console.error('Error fetching products:', error)
-        products = []
+    if (!category) {
+        // If category doesn't exist in Sanity, return 404
+        return notFound()
     }
+
+    // 2. Fetch Products
+    const products = await getProductsByCategory(params.slug)
 
     return (
         <div className="min-h-screen bg-stone-50 pt-32 pb-24">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
                 {/* Page Header */}
-                <div className="text-center mb-20">
-                    <h1 className="font-serif text-5xl md:text-7xl font-bold text-stone-900 uppercase tracking-widest mb-4">
-                        {categoryTitle}
+                <div className="text-center mb-20 space-y-4">
+                    <h1 className="font-serif text-5xl md:text-7xl font-medium text-stone-900 leading-tight">
+                        {category.name}
                     </h1>
-                    <p className="font-sans text-stone-600 text-lg tracking-wide">
-                        {products.length} ürün bulundu
+                    {category.description && (
+                        <p className="font-sans text-stone-600 text-lg max-w-2xl mx-auto">
+                            {category.description}
+                        </p>
+                    )}
+                    <p className="font-sans text-stone-500 text-sm tracking-wide">
+                        {products.length} ürün listeleniyor
                     </p>
                 </div>
 
                 {/* Products Grid */}
                 {products.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {products.map((product) => (
-                            <Link
-                                key={product._id}
-                                href={`/product/${product.slug.current}`}
-                                className="group"
-                            >
-                                {/* Image */}
-                                <div className="relative aspect-square overflow-hidden bg-stone-200 mb-4">
-                                    {product.images && product.images[0] && (
-                                        <Image
-                                            src={urlFor(product.images[0]).width(1000).height(1000).quality(100).url()}
-                                            alt={product.title}
-                                            fill
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                            quality={90}
-                                        />
-                                    )}
-                                </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                        {products.map((product) => {
+                            // Logic to resolve the main image (Cover > First Image)
+                            const mainImage = product.images?.find((img: any) => img.isCover) || product.images?.[0]
 
-                                {/* Product Info */}
-                                <div>
-                                    <h3 className="font-serif text-xl font-bold text-stone-900 uppercase tracking-wider mb-2 group-hover:text-stone-600 transition-colors">
-                                        {product.title}
-                                    </h3>
-                                    {product.description && (
-                                        <p className="font-sans text-stone-600 text-sm line-clamp-2 tracking-wide">
-                                            {product.description}
+                            return (
+                                <Link
+                                    key={product._id}
+                                    href={`/product/${product.slug.current}`}
+                                    className="group block"
+                                >
+                                    {/* Image */}
+                                    <div className="relative aspect-[4/5] overflow-hidden bg-stone-200 mb-6 rounded-sm">
+                                        {mainImage ? (
+                                            <img
+                                                src={urlFor(mainImage).width(800).height(1000).url()}
+                                                alt={product.title}
+                                                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-stone-400">Görsel Yok</div>
+                                        )}
+                                        {/* Overlay */}
+                                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    </div>
+
+                                    {/* Product Info */}
+                                    <div className="text-center space-y-2">
+                                        <h3 className="font-serif text-2xl text-stone-900 group-hover:text-stone-600 transition-colors">
+                                            {product.title}
+                                        </h3>
+                                        {/* Optional Price */}
+                                        {/*
+                                        <p className="font-sans text-stone-900 font-medium">
+                                            {product.price ? `${product.price.toLocaleString('tr-TR')} ₺` : 'Fiyat Sorunuz'}
                                         </p>
-                                    )}
-                                </div>
-                            </Link>
-                        ))}
+                                        */}
+                                    </div>
+                                </Link>
+                            )
+                        })}
                     </div>
                 ) : (
-                    <div className="text-center py-20">
-                        <p className="font-sans text-stone-600 text-lg mb-8">
-                            Bu kategoride henüz ürün bulunmuyor.
+                    <div className="text-center py-32 border border-dashed border-stone-300 rounded-lg">
+                        <p className="font-serif text-2xl text-stone-400 mb-6">
+                            Bu koleksiyonda henüz ürün bulunmuyor.
                         </p>
                         <Link
                             href="/"
