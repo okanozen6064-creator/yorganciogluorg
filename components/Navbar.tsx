@@ -21,6 +21,7 @@ export default function Navbar() {
     const navLinks = [
         { href: '/collections', label: 'Koleksiyonlar' },
         { href: '/about', label: 'Hakkımızda' },
+        { href: '/blog', label: 'Blog' },
         { href: '/contact', label: 'İletişim' },
     ]
 
