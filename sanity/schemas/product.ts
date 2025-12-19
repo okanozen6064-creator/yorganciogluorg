@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, defineArrayMember } from 'sanity'
 
 export const productType = defineType({
     name: 'product',
@@ -25,21 +25,23 @@ export const productType = defineType({
             name: 'images',
             title: 'Ürün Görselleri (Toplu yükleme yapabilirsiniz)',
             type: 'array',
-            of: [{
-                type: 'image',
-                options: {
-                    hotspot: true,
-                },
-                fields: [
-                    {
-                        name: 'isCover',
-                        title: 'Kapak Fotoğrafı',
-                        type: 'boolean',
-                        initialValue: false,
-                        description: 'Bu görselin ürün listelerinde kapak fotoğrafı olarak görünmesini istiyorsanız işaretleyin.',
-                    }
-                ]
-            }],
+            of: [
+                defineArrayMember({
+                    type: 'image',
+                    options: {
+                        hotspot: true,
+                    },
+                    fields: [
+                        {
+                            name: 'isCover',
+                            title: 'Kapak Fotoğrafı',
+                            type: 'boolean',
+                            initialValue: false,
+                            description: 'Bu görselin ürün listelerinde kapak fotoğrafı olarak görünmesini istiyorsanız işaretleyin.',
+                        }
+                    ]
+                })
+            ],
             options: {
                 layout: 'grid',
             },

@@ -18,14 +18,26 @@ async function getFeaturedProducts() {
     return await client.fetch(query)
 }
 
+async function getCollections() {
+    const query = `*[_type == "collection"] | order(title asc){
+    _id,
+    name,
+    slug,
+    image
+  }`
+    return await client.fetch(query)
+}
+
 export default async function HomePage() {
-    const featuredProducts = await getFeaturedProducts()
+    const [featuredProducts, collections] = await Promise.all([
+        getFeaturedProducts(),
+        getCollections()
+    ])
 
     return (
         <div className="bg-stone-50">
             <HeroSlider />
-            <CategoryCircles />
-            <CategoryGrid />
+            <CategoryCircles collections={collections} />
             <PosterSection />
             {featuredProducts.length > 0 && (
                 <FeaturedProducts products={featuredProducts} />

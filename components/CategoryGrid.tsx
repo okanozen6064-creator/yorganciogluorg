@@ -4,41 +4,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { urlFor } from '@/sanity/lib/client'
 
-const categories = [
-    {
-        name: 'Koltuk Takımları',
-        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.40.jpeg',
-        href: '/collections/koltuk-takimlari',
-        description: 'Konforun en şık hali'
-    },
-    {
-        name: 'Yatak Odası',
-        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.43.jpeg',
-        href: '/collections/yatak-odasi',
-        description: 'Huzurlu uykular için'
-    },
-    {
-        name: 'Yemek Odası',
-        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.44.jpeg',
-        href: '/collections/yemek-odasi',
-        description: 'Keyifli sofralar'
-    },
-    {
-        name: 'Oturma Grupları',
-        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.45.jpeg',
-        href: '/collections/oturma-gruplari',
-        description: 'Modern yaşam alanları'
-    },
-    {
-        name: 'Özel Tasarım',
-        image: '/lizbon koltuk takımı/WhatsApp Image 2025-12-16 at 17.23.47.jpeg',
-        href: '/collections/ozel-tasarim',
-        description: 'Size özel üretim'
-    },
-]
+interface Collection {
+    _id: string
+    name: string
+    slug: { current: string }
+    image: any
+    description?: string
+}
 
-export default function CategoryGrid() {
+interface CategoryGridProps {
+    collections?: Collection[]
+}
+
+export default function CategoryGrid({ collections = [] }: CategoryGridProps) {
+    if (!collections.length) return null
+
     return (
         <section className="py-32 px-4 md:px-8 bg-[#FDFBF7]"> {/* Çok açık krem rengi arka plan */}
             <div className="max-w-[1400px] mx-auto">
@@ -65,25 +47,27 @@ export default function CategoryGrid() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                    {categories.map((category, index) => (
+                    {collections.map((collection, index) => (
                         <motion.div
-                            key={index}
+                            key={collection._id}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.6 }}
                         >
-                            <Link href={category.href} className="group block h-full">
+                            <Link href={`/collections/${collection.slug.current}`} className="group block h-full">
                                 {/* Image Container - Framed Style (Smaller Image) */}
                                 <div className="relative overflow-hidden aspect-[4/5] bg-stone-200 mb-6">
                                     <div className="absolute inset-0 bg-stone-300 animate-pulse" /> {/* Placeholder loading */}
-                                    <Image
-                                        src={category.image}
-                                        alt={category.name}
-                                        fill
-                                        className="object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-[0.2]"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
+                                    {collection.image && (
+                                        <Image
+                                            src={urlFor(collection.image).width(800).height(1000).url()}
+                                            alt={collection.name}
+                                            fill
+                                            className="object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-[0.2]"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        />
+                                    )}
                                     {/* Overlay that lightens on hover */}
                                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -99,11 +83,13 @@ export default function CategoryGrid() {
                                         0{index + 1}
                                     </span>
                                     <h3 className="font-sans text-3xl font-light text-stone-900 mb-2 group-hover:tracking-wide transition-all duration-300">
-                                        {category.name}
+                                        {collection.name}
                                     </h3>
-                                    <p className="font-sans text-stone-500 text-sm tracking-wide group-hover:text-stone-800 transition-colors">
-                                        {category.description}
-                                    </p>
+                                    {collection.description && (
+                                        <p className="font-sans text-stone-500 text-sm tracking-wide group-hover:text-stone-800 transition-colors">
+                                            {collection.description}
+                                        </p>
+                                    )}
                                 </div>
                             </Link>
                         </motion.div>
