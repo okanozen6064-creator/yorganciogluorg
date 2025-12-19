@@ -1,9 +1,9 @@
 import HeroSlider from '@/components/HeroSlider'
 import CategoryCircles from '@/components/CategoryCircles'
-import CategoryGrid from '@/components/CategoryGrid'
 import PosterSection from '@/components/PosterSection'
 import FeaturedProducts from '@/components/FeaturedProducts'
 import ReelsSection from '@/components/ReelsSection'
+import BlogSection from '@/components/BlogSection'
 import { client } from '@/sanity/lib/client'
 
 export const revalidate = 60 // Revalidate every 60 seconds
@@ -44,6 +44,7 @@ export default async function HomePage() {
             {featuredProducts.length > 0 && (
                 <FeaturedProducts products={featuredProducts} />
             )}
+            <BlogSection />
             <ReelsSection />
         </div>
     )
