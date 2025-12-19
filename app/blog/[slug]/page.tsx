@@ -29,32 +29,42 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
         if (demoPost) {
             return (
-                <article className="min-h-screen pt-24 pb-24 bg-white">
-                    <div className="max-w-3xl mx-auto px-6">
+                <article className="min-h-screen pt-40 pb-24 bg-white selection:bg-stone-200">
+                    <div className="max-w-4xl mx-auto px-6">
                         <Link
                             href="/blog"
-                            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors mb-8 text-sm font-medium tracking-wide uppercase"
+                            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors mb-12 text-xs font-bold tracking-[0.2em] uppercase group"
                         >
-                            <ArrowLeft className="w-4 h-4" />
+                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                             Bloga Dön
                         </Link>
 
-                        <header className="mb-12 text-center">
-                            <div className="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase mb-4">
+                        <header className="mb-16 text-center">
+                            <div className="text-xs font-bold tracking-[0.3em] text-stone-400 uppercase mb-6">
                                 {new Date(demoPost.publishedAt).toLocaleDateString('tr-TR', {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric'
                                 })}
                             </div>
-                            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-stone-900 leading-tight mb-8">
+                            <h1 className="font-serif text-4xl md:text-6xl text-stone-900 leading-[1.1] mb-8 max-w-3xl mx-auto">
                                 {demoPost.title}
                             </h1>
                         </header>
 
-                        {/* No image for demo post to keep it simple, or add a placeholder if needed */}
+                        {demoPost.mainImage && (
+                            <div className="relative w-full aspect-[16/9] mb-20">
+                                <Image
+                                    src={demoPost.mainImage}
+                                    alt={demoPost.title}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                />
+                            </div>
+                        )}
 
-                        <div className="prose prose-stone prose-lg mx-auto font-sans focus:outline-none">
+                        <div className="prose prose-stone prose-lg md:prose-xl mx-auto font-serif focus:outline-none prose-headings:font-normal prose-p:leading-loose prose-a:text-stone-900 prose-a:no-underline hover:prose-a:underline">
                             <PortableText value={demoPost.body} />
                         </div>
                     </div>

@@ -71,7 +71,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                         <div className="lg:col-span-8 relative aspect-[16/10] overflow-hidden">
                             {heroPost.mainImage ? (
                                 <Image
-                                    src={urlFor(heroPost.mainImage).width(1600).url()}
+                                    src={typeof heroPost.mainImage === 'string' ? heroPost.mainImage : urlFor(heroPost.mainImage).width(1600).url()}
                                     alt={heroPost.title}
                                     fill
                                     className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
@@ -122,7 +122,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                                 <div className="relative aspect-[3/4] mb-8 overflow-hidden bg-stone-200">
                                     {post.mainImage ? (
                                         <Image
-                                            src={urlFor(post.mainImage).width(800).height(1067).url()}
+                                            src={typeof post.mainImage === 'string' ? post.mainImage : urlFor(post.mainImage).width(800).height(1067).url()}
                                             alt={post.title}
                                             fill
                                             className="object-cover transition-transform duration-700 group-hover:scale-105"
