@@ -6,8 +6,10 @@ import FeaturedProducts from '@/components/FeaturedProducts'
 import ReelsSection from '@/components/ReelsSection'
 import { client } from '@/sanity/lib/client'
 
+export const revalidate = 60 // Revalidate every 60 seconds
+
 async function getFeaturedProducts() {
-    const query = `*[_type == "product" && featured == true][0...6]{
+    const query = `*[_type == "product" && featured == true] | order(_createdAt desc) [0...6]{
     _id,
     title,
     slug,
