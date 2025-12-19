@@ -17,7 +17,6 @@ interface Post {
 }
 
 export default function BlogIndex({ posts }: { posts: Post[] }) {
-    const [email, setEmail] = useState('')
     const [scrolled, setScrolled] = useState(false)
 
     useEffect(() => {
@@ -28,164 +27,134 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    // Logic: First post is featured, rest are grid
-    // If no posts, show empty state or dummies
-    const featuredList = posts.length > 0 ? [posts[0]] : []
-    const gridList = posts.length > 1 ? posts.slice(1) : []
+    if (!posts || posts.length === 0) return null
 
-    const featuredArticle = featuredList[0]
-
-    // Placeholder if no content
-    if (!featuredArticle) {
-        return (
-            <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center">
-                <p className="text-stone-500 font-serif text-xl">Henüz blog yazısı eklenmemiş.</p>
-            </div>
-        )
-    }
+    // Layout Strategy: First post is HERO. Others are GRID.
+    const heroPost = posts[0]
+    const otherPosts = posts.slice(1)
 
     return (
-        <div className="min-h-screen bg-[#F9F9F9]">
-            {/* Sticky Social Bar */}
+        <div className="min-h-screen bg-[#F5F5F0] text-[#1A1A1A] font-light">
+            {/* Sticky Social/Nav Bar */}
             <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: scrolled ? 1 : 0, x: scrolled ? 0 : -20 }}
-                className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: scrolled ? 1 : 0, y: scrolled ? 0 : -20 }}
+                className="fixed top-0 left-0 right-0 z-40 bg-[#F5F5F0]/90 backdrop-blur-md border-b border-stone-200 py-4 px-8 flex justify-between items-center"
             >
-                <div className="flex flex-col gap-6 text-xs tracking-[0.2em] uppercase text-[#999999]">
-                    <button className="hover:text-[#2A2A2A] transition-colors rotate-180 [writing-mode:vertical-lr]">
-                        Instagram
-                    </button>
-                    <button className="hover:text-[#2A2A2A] transition-colors rotate-180 [writing-mode:vertical-lr]">
-                        Pinterest
-                    </button>
-                </div>
+                <Link href="/" className="font-serif font-bold tracking-widest text-lg">YORGANCIOĞLU</Link>
+                <span className="text-xs tracking-[0.3em] font-sans">MAGAZINE</span>
             </motion.div>
 
-            {/* Featured Section */}
-            <section className="max-w-[1600px] mx-auto px-6 pt-32 pb-20">
-                <Link href={`/blog/${featuredArticle.slug.current}`}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="relative h-[85vh] group cursor-pointer overflow-hidden"
-                    >
-                        {featuredArticle.mainImage && (
-                            <Image
-                                src={urlFor(featuredArticle.mainImage).width(1600).height(1200).url()}
-                                alt={featuredArticle.title}
-                                fill
-                                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                priority
-                            />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-12 md:p-16 text-white">
-                            <div className="max-w-4xl">
-                                <p className="text-xs tracking-[0.3em] uppercase mb-4 text-white/80">
-                                    {featuredArticle.category || 'Tasarım Günlükleri'} · {new Date(featuredArticle.publishedAt).toLocaleDateString('tr-TR')}
-                                </p>
-                                <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 leading-[1.1] text-balance">
-                                    {featuredArticle.title}
-                                </h2>
-                                {featuredArticle.excerpt && (
-                                    <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl leading-relaxed line-clamp-3">
-                                        {featuredArticle.excerpt}
-                                    </p>
-                                )}
-                                <span
-                                    className="inline-block border border-white text-white hover:bg-white hover:text-[#2A2A2A] transition-all duration-300 px-8 py-4 text-sm tracking-[0.2em] uppercase backdrop-blur-sm"
-                                >
-                                    Hikayeyi Oku
-                                </span>
-                            </div>
+            {/* Header */}
+            <header className="pt-40 pb-20 px-6 text-center">
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-6 text-stone-500"
+                >
+                    Estetik & Yaşam
+                </motion.p>
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="font-serif text-6xl md:text-9xl leading-[0.85] tracking-tight"
+                >
+                    THE JOURNAL
+                </motion.h1>
+            </header>
+
+            {/* Hero Post */}
+            <section className="max-w-[1500px] mx-auto px-6 mb-32">
+                <Link href={`/blog/${heroPost.slug.current}`} className="group block">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                        <div className="lg:col-span-8 relative aspect-[16/10] overflow-hidden">
+                            {heroPost.mainImage ? (
+                                <Image
+                                    src={urlFor(heroPost.mainImage).width(1600).url()}
+                                    alt={heroPost.title}
+                                    fill
+                                    className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                                    priority
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-stone-300 flex items-center justify-center text-stone-400 font-serif text-2xl">
+                                    Görsel Hazırlanıyor
+                                </div>
+                            )}
                         </div>
-                    </motion.div>
+                        <div className="lg:col-span-4 lg:pl-8 pb-4">
+                            <span className="block text-xs font-bold tracking-[0.2em] uppercase mb-4 text-stone-500">
+                                {heroPost.category || 'Kapak Konusu'}
+                            </span>
+                            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6 group-hover:underline decoration-1 underline-offset-4">
+                                {heroPost.title}
+                            </h2>
+                            <p className="text-stone-600 text-lg leading-relaxed line-clamp-4 font-serif italic">
+                                {heroPost.excerpt}
+                            </p>
+                            <span className="inline-block mt-8 text-xs font-bold tracking-[0.2em] uppercase border-b border-black pb-1">
+                                Devamını Oku
+                            </span>
+                        </div>
+                    </div>
                 </Link>
             </section>
 
-            {/* Asymmetrical Masonry Grid */}
-            <section className="max-w-[1600px] mx-auto px-6 py-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto">
-                    {gridList.map((article, index) => {
-                        // Simple layout logic based on index
-                        const isTall = index % 3 === 0
-                        const isWide = index % 3 === 1
-
-                        return (
-                            <motion.article
-                                key={article._id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                className={`group cursor-pointer ${isTall ? "md:row-span-2" : isWide ? "lg:col-span-2" : ""
-                                    }`}
-                            >
-                                <Link href={`/blog/${article.slug.current}`}>
-                                    <div className="relative overflow-hidden mb-6 border border-[#E5E5E5] aspect-[4/3] md:aspect-auto md:h-full min-h-[300px]">
-                                        {article.mainImage && (
-                                            <Image
-                                                src={urlFor(article.mainImage).width(800).height(800).url()}
-                                                alt={article.title}
-                                                fill
-                                                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                            />
-                                        )}
-                                    </div>
-                                    <div className="space-y-4">
-                                        <p className="text-xs tracking-[0.3em] uppercase text-[#999999]">
-                                            {article.category || 'Tasarım'} · {new Date(article.publishedAt).toLocaleDateString('tr-TR')}
-                                        </p>
-                                        <h3 className="font-serif text-3xl md:text-4xl text-[#2A2A2A] leading-tight group-hover:opacity-70 transition-opacity duration-300 text-balance">
-                                            <span className="relative inline-block">
-                                                {article.title}
-                                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#2A2A2A] group-hover:w-full transition-all duration-500" />
-                                            </span>
-                                        </h3>
-                                        {article.excerpt && (
-                                            <p className="text-base text-[#666666] leading-relaxed line-clamp-3">
-                                                <span className="float-left font-serif text-7xl leading-[0.8] mr-3 mt-2 text-[#2A2A2A]">
-                                                    {article.excerpt.charAt(0)}
-                                                </span>
-                                                {article.excerpt.slice(1)}
-                                            </p>
-                                        )}
-                                    </div>
-                                </Link>
-                            </motion.article>
-                        )
-                    })}
+            {/* Editorial Grid */}
+            <section className="max-w-[1500px] mx-auto px-6 pb-40">
+                <div className="border-t border-black mb-16 pt-4 flex justify-between items-end">
+                    <span className="font-serif text-4xl md:text-5xl italic">Editörün Seçimleri</span>
+                    <span className="hidden md:block text-xs font-bold tracking-[0.2em]">CİLT 01 // 2025</span>
                 </div>
-            </section>
 
-            {/* Newsletter Section */}
-            <section className="max-w-[1600px] mx-auto px-6 py-32">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-2xl mx-auto text-center border-t border-b border-[#E5E5E5] py-20"
-                >
-                    <h2 className="font-serif text-5xl md:text-6xl mb-6 text-[#2A2A2A] text-balance">Topluluğa Katılın</h2>
-                    <p className="text-lg text-[#666666] mb-12 tracking-wide leading-relaxed">
-                        Tasarım, ustalık ve iyi yaşam sanatı üzerine özenle seçilmiş hikayeler.
-                    </p>
-                    <div className="flex gap-4 max-w-md mx-auto">
-                        <input
-                            type="email"
-                            placeholder="E-posta adresiniz"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="flex-1 w-full bg-transparent border-b border-[#E5E5E5] py-2 text-[#2A2A2A] placeholder:text-[#999999] focus:outline-none focus:border-[#2A2A2A] transition-colors rounded-none"
-                        />
-                        <button className="bg-[#2A2A2A] text-white hover:bg-[#444444] transition-colors px-8 py-3 whitespace-nowrap text-sm tracking-[0.2em] uppercase">
-                            Abone Ol
-                        </button>
-                    </div>
-                </motion.div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+                    {otherPosts.map((post, i) => (
+                        <motion.article
+                            key={post._id}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className="group cursor-pointer flex flex-col h-full"
+                        >
+                            <Link href={`/blog/${post.slug.current}`} className="block h-full flex flex-col">
+                                <div className="relative aspect-[3/4] mb-8 overflow-hidden bg-stone-200">
+                                    {post.mainImage ? (
+                                        <Image
+                                            src={urlFor(post.mainImage).width(800).height(1067).url()}
+                                            alt={post.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center border-t-4 border-[#1A1A1A] bg-white">
+                                            <span className="font-serif text-6xl text-stone-200 mb-4">{i + 1}</span>
+                                            <span className="font-serif text-xl italic text-stone-400">Yorgancıoğlu<br />Magazin</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="mt-auto">
+                                    <div className="flex justify-between items-baseline mb-3 border-b border-stone-300 pb-2">
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-stone-500">
+                                            {post.category || 'Makale'}
+                                        </span>
+                                        <span className="text-[10px] tracking-widest text-stone-400">
+                                            {/* Date placeholder if needed, or just remove */}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-serif text-2xl md:text-3xl leading-tight mb-4 group-hover:text-stone-600 transition-colors">
+                                        {post.title}
+                                    </h3>
+                                    <p className="text-sm md:text-base text-stone-600 leading-relaxed font-serif line-clamp-3">
+                                        {post.excerpt}
+                                    </p>
+                                </div>
+                            </Link>
+                        </motion.article>
+                    ))}
+                </div>
             </section>
         </div>
     )
