@@ -22,6 +22,136 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     const post = await getPost(params.slug)
 
     if (!post) {
+        // Fallback for demo purposes if the slug matches our new article
+        if (params.slug === 'sessiz-luks') {
+            const demoPost = {
+                title: 'Lüksün Yeni Tanımı: "Sessiz Lüks" Ev Dekorasyonuna Nasıl Uyarlanır?',
+                publishedAt: new Date().toISOString(),
+                // Using a placeholder image or null if none available, logic below handles null mainImage gracefully
+                mainImage: null,
+                body: [
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Moda dünyasında podyumları ele geçiren, logoların gürültüsünü susturup kalitenin fısıltısını ön plana çıkaran o asil akım, şimdi yaşam alanlarımızın ruhuna sızıyor: Quiet Luxury (Sessiz Lüks). Yorgancıoğlu Mobilya olarak, Antalya’nın zamansız ışığıyla harmanladığımız estetik anlayışımızı, bu yeni nesil "gösterişsiz ihtişam" felsefesiyle birleştiriyoruz. Peki, bir evi sadece "pahalı" değil, "değerli" kılan bu akımı dekorasyona nasıl uyarlarsınız? İşte sofistike bir yaşam alanının kodları...' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'h3',
+                        children: [{ _type: 'span', text: '1. "Bağıran" Tasarımlardan "Konuşan" Dokulara' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Sessiz lüksün ilk kuralı, ilk bakışta dikkati üzerine çekmek için çabalamayan ama dokunulduğunda hikayesini anlatan parçalar seçmektir. Dev logolar veya aşırı süslemeler yerine; ham mermerin soğuk asaletine, masif meşenin sıcak dokusuna ve ketenin doğal kırışıklığına odaklanın.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'blockquote',
+                        children: [{ _type: 'span', text: 'Unutmayın; gerçek lüks, bir eşyanın fiyat etiketinde değil, parmak uçlarınızda hissettiğiniz o kusursuz işçilikte saklıdır.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'h3',
+                        children: [{ _type: 'span', text: '2. Zamansız Bir Renk Paleti: "Grej" ve Ötesi' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Sessiz lüks, gözü yormayan renklerin hakimiyetidir. Bej ve gri arasındaki o büyülü geçiş olan "grej", kum tonları, fildişi ve adaçayı yeşili bu stilin temel taşlarıdır. Renklerin bu sakin dansı, mobilyaların formunu ve malzeme kalitesini daha görünür kılar. Yorgancıoğlu koleksiyonlarında sıkça göreceğiniz toprak tonları, mekanın sadece bir "oda" değil, bir "sığınak" olmasını sağlar.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'h3',
+                        children: [{ _type: 'span', text: '3. Az ama "Hero" (Kahraman) Parçalar' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Evinizi eşyayla doldurmak yerine, her biri bir sanat eseri niteliğinde olan birkaç ana parça seçin. Bu, kusursuz bir kavisle inen el yapımı bir yemek masası veya İtalyan deri işçiliğiyle bezenmiş bir kanepe olabilir. Sessiz lüks, nicelikten ziyade niteliğin zaferidir. Mekanda boşluk bırakmaktan korkmayın; çünkü o boşluk, seçtiğiniz özel parçanın karakterini vurgulayan bir çerçevedir.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'h3',
+                        children: [{ _type: 'span', text: '4. Miras ve Zanaatın Gücü' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Sessiz lüks akımı, aslında bir "Old Money" (köklü zenginlik) estetiğidir. Bu estetiğin temelinde ise nesilden nesile aktarılabilecek kadar dayanıklı ve kaliteli üretim yatar. Bir mobilyanın arkasındaki zanaat ne kadar derinse, evinizdeki ağırlığı o kadar hissedilir olur. Seri üretim kusurlarından uzak, her detayı titizlikle düşünülmüş mobilyalar, evinize yaşanmışlık ve asalet katar.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'h3',
+                        children: [{ _type: 'span', text: '5. Işığın ve Mekanın Mimari Uyumu' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Antalya’nın o meşhur, yumuşak gün ışığını evin içine nasıl davet ettiğiniz çok önemlidir. Sessiz lüks, sadece mobilya değildir; o mobilyanın içinde nefes aldığı atmosferdir. Ağır perdeler yerine uçuşan ipekler, yapay parlaklıklar yerine pirinç detayların mat ışıltısı... Işık, seçtiğiniz kaliteli malzemelerin üzerindeki gölge oyunlarını ortaya çıkarmalıdır.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'h3',
+                        children: [{ _type: 'span', text: 'Yorgancıoğlu Dokunuşuyla Sessiz Lüks' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Lüksü yeniden tanımlarken, bizler sadece mobilya üretmiyoruz; yaşam stilinize bir "karakter" kazandırıyoruz. Yorgancıoğlu Mobilya olarak, Antalya’daki showroomumuzda sunduğumuz tasarımlarla, sizi kelimelerin ötesinde bir şıklığa davet ediyoruz.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Evine girdiğinizde sizi karşılayan şey markalar değil, bir huzur ve kalite hissiyse; işte o zaman Sessiz Lüksü başarmışsınız demektir.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Evinizde bu asil dönüşümü başlatmak için tasarım ekibimizle iletişime geçebilir, zamansız koleksiyonlarımızı keşfedebilirsiniz.' }]
+                    },
+                    {
+                        _type: 'block',
+                        style: 'normal',
+                        children: [{ _type: 'span', text: 'Sizce evinizde sessiz lüksün en güçlü temsilcisi hangi parça olmalı? Keten bir kanepe mi, yoksa ham bir mermer sehpa mı?' }]
+                    }
+                ]
+            }
+
+            return (
+                <article className="min-h-screen pt-24 pb-24 bg-white">
+                    <div className="max-w-3xl mx-auto px-6">
+                        <Link
+                            href="/"
+                            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors mb-8 text-sm font-medium tracking-wide uppercase"
+                        >
+                            <ArrowLeft className="w-4 h-4" />
+                            Ana Sayfaya Dön
+                        </Link>
+
+                        <header className="mb-12 text-center">
+                            <div className="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase mb-4">
+                                {new Date(demoPost.publishedAt).toLocaleDateString('tr-TR', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}
+                            </div>
+                            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-stone-900 leading-tight mb-8">
+                                {demoPost.title}
+                            </h1>
+                        </header>
+
+                        {/* No image for demo post to keep it simple, or add a placeholder if needed */}
+
+                        <div className="prose prose-stone prose-lg mx-auto font-sans focus:outline-none">
+                            <PortableText value={demoPost.body} />
+                        </div>
+                    </div>
+                </article>
+            )
+        }
+
         // Fallback for demo purposes if the slug matches one of our dummy items
         if (params.slug === '#') {
             return (
