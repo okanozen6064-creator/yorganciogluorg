@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Mail, MapPin, Phone, Instagram, Facebook, Twitter } from 'lucide-react'
 
 export default function Footer() {
@@ -9,11 +10,15 @@ export default function Footer() {
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-8 py-24">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-                    {/* Column 1: Brand + Map */}
                     <div className="md:col-span-1">
-                        <h2 className="font-serif text-2xl font-bold text-stone-100 uppercase tracking-wider mb-4">
-                            Yorgancıoğlu
-                        </h2>
+                        <div className="relative w-48 h-16 mb-4">
+                            <Image
+                                src="/logo.png"
+                                alt="Yorgancıoğlu"
+                                fill
+                                className="object-contain bg-white/5 rounded-sm p-1"
+                            />
+                        </div>
                         <p className="font-sans text-stone-400 leading-relaxed text-sm tracking-wide mb-6">
                             1985'ten beri lüks mobilya ve ev dekorasyonunda en iyisini sunuyoruz.
                         </p>

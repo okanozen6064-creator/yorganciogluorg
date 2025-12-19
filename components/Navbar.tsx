@@ -34,14 +34,15 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
-                    {/* Logo */}
-                    <Link href="/" className="flex-shrink-0">
-                        <span className={`font-serif text-2xl font-bold uppercase tracking-widest transition-colors ${scrolled ? 'text-stone-900' : 'text-white'
-                            }`}>
-                            Yorgancıoğlu
-                        </span>
+                    <Link href="/" className="flex-shrink-0 relative w-48 h-16">
+                        <Image
+                            src="/logo.png"
+                            alt="Yorgancıoğlu"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
                     </Link>
-
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {navLinks.map((link) => (
@@ -113,6 +114,6 @@ export default function Navbar() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </nav >
     )
 }
