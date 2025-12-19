@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -12,6 +12,12 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({
     subsets: ['latin'],
     variable: '--font-playfair'
+})
+const cormorant = Cormorant_Garamond({
+    subsets: ['latin'],
+    weight: ['300', '400', '500', '600', '700'],
+    variable: '--font-cormorant',
+    display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="tr">
-            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+            <body className={`${inter.variable} ${playfair.variable} ${cormorant.variable} font-sans antialiased`}>
                 <LandingIntro />
                 <CustomCursor />
                 <Navbar />

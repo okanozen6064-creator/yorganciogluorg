@@ -20,59 +20,45 @@ async function getPost(slug: string) {
 
 import { demoPosts } from '@/lib/blog-data'
 
+const components = {
+    block: {
+        h1: ({ children }: any) => <h1 className="font-serif text-3xl md:text-5xl text-stone-900 mt-16 mb-8 leading-tight">{children}</h1>,
+        h2: ({ children }: any) => <h2 className="font-serif text-2xl md:text-4xl text-stone-800 mt-14 mb-6 leading-tight">{children}</h2>,
+        h3: ({ children }: any) => <h3 className="font-serif text-xl md:text-2xl text-stone-800 mt-12 mb-4 font-bold tracking-wide uppercase border-l-4 border-stone-200 pl-4">{children}</h3>,
+        normal: ({ children }: any) => <p className="font-cormorant text-xl md:text-2xl leading-relaxed text-stone-700 mb-8 font-light ml-0 md:first-of-type:first-letter:text-7xl md:first-of-type:first-letter:font-serif md:first-of-type:first-letter:text-stone-900 md:first-of-type:first-letter:mr-3 md:first-of-type:first-letter:float-left">{children}</p>,
+        blockquote: ({ children }: any) => (
+            <blockquote className="relative my-12 p-8 md:p-12 text-center">
+                <span className="absolute top-0 left-0 text-8xl text-stone-200 font-serif leading-none -translate-x-4 -translate-y-8">“</span>
+                <p className="font-serif text-2xl md:text-4xl italic text-stone-900 leading-snug relative z-10">
+                    {children}
+                </p>
+                <cite className="block mt-6 text-sm font-sans font-bold tracking-[0.2em] text-stone-400 uppercase not-italic">
+                    Yorgancıoğlu Design
+                </cite>
+            </blockquote>
+        ),
+    },
+    marks: {
+        strong: ({ children }: any) => <strong className="font-bold text-stone-900">{children}</strong>,
+        em: ({ children }: any) => <em className="italic text-stone-800 font-serif">{children}</em>,
+        link: ({ children, value }: any) => {
+            const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+            return (
+                <a href={value.href} rel={rel} className="border-b border-stone-400 text-stone-800 hover:border-stone-900 transition-colors pb-0.5">
+                    {children}
+                </a>
+            )
+        },
+    }
+}
+
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
     const post = await getPost(params.slug)
+    const demoPost = !post ? demoPosts.find(p => p.slug.current === params.slug) : null
 
-    if (!post) {
-        // Fallback for demo purposes
-        const demoPost = demoPosts.find(p => p.slug.current === params.slug)
+    const activePost = post || demoPost
 
-        if (demoPost) {
-            return (
-                <article className="min-h-screen pt-40 pb-24 bg-white selection:bg-stone-200">
-                    <div className="max-w-4xl mx-auto px-6">
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors mb-12 text-xs font-bold tracking-[0.2em] uppercase group"
-                        >
-                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                            Bloga Dön
-                        </Link>
-
-                        <header className="mb-16 text-center">
-                            <div className="text-xs font-bold tracking-[0.3em] text-stone-400 uppercase mb-6">
-                                {new Date(demoPost.publishedAt).toLocaleDateString('tr-TR', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
-                            </div>
-                            <h1 className="font-serif text-4xl md:text-6xl text-stone-900 leading-[1.1] mb-8 max-w-3xl mx-auto">
-                                {demoPost.title}
-                            </h1>
-                        </header>
-
-                        {demoPost.mainImage && (
-                            <div className="relative w-full aspect-[16/9] mb-20">
-                                <Image
-                                    src={demoPost.mainImage}
-                                    alt={demoPost.title}
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                />
-                            </div>
-                        )}
-
-                        <div className="prose prose-stone prose-lg md:prose-xl mx-auto font-serif focus:outline-none prose-headings:font-normal prose-p:leading-loose prose-a:text-stone-900 prose-a:no-underline hover:prose-a:underline">
-                            <PortableText value={demoPost.body} />
-                        </div>
-                    </div>
-                </article>
-            )
-        }
-
-        // Fallback for demo purposes if the slug matches one of our dummy items
+    if (!activePost) {
         if (params.slug === '#') {
             return (
                 <div className="min-h-screen pt-32 pb-24 bg-white flex flex-col items-center justify-center text-center px-4">
@@ -85,49 +71,56 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         return notFound()
     }
 
+    const mainImageSrc = post?.mainImage
+        ? urlFor(post.mainImage).width(1600).url()
+        : (demoPost?.mainImage || null)
+
     return (
-        <article className="min-h-screen pt-24 pb-24 bg-white">
-            <div className="max-w-3xl mx-auto px-6">
-                {/* Back Link */}
+        <article className="min-h-screen pt-40 pb-24 bg-[#FAFAF8] selection:bg-stone-200 text-stone-800">
+            <div className="max-w-4xl mx-auto px-6">
                 <Link
-                    href="/"
-                    className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors mb-8 text-sm font-medium tracking-wide uppercase"
+                    href="/blog"
+                    className="inline-flex items-center gap-2 text-stone-400 hover:text-stone-900 transition-colors mb-16 text-xs font-bold tracking-[0.2em] uppercase group"
                 >
-                    <ArrowLeft className="w-4 h-4" />
-                    Ana Sayfaya Dön
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    Bloga Dön
                 </Link>
 
-                {/* Header */}
-                <header className="mb-12 text-center">
-                    <div className="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase mb-4">
-                        {new Date(post.publishedAt).toLocaleDateString('tr-TR', {
+                <header className="mb-20 text-center">
+                    <div className="text-xs font-bold tracking-[0.3em] text-stone-400 uppercase mb-8">
+                        {new Date(activePost.publishedAt).toLocaleDateString('tr-TR', {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric'
-                        })}
+                        })} • {activePost.category || 'M A K A L E'}
                     </div>
-                    <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-stone-900 leading-tight mb-8">
-                        {post.title}
+                    <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-stone-900 leading-[0.9] mb-12 max-w-4xl mx-auto tracking-tight">
+                        {activePost.title}
                     </h1>
+                    <div className="w-24 h-1 bg-stone-900 mx-auto" />
                 </header>
 
-                {/* Main Image */}
-                {post.mainImage && (
-                    <div className="relative aspect-[16/9] w-full mb-12 rounded-sm overflow-hidden bg-stone-100">
+                {mainImageSrc && (
+                    <div className="relative w-full aspect-[16/9] mb-24 shadow-2xl">
                         <Image
-                            src={urlFor(post.mainImage).width(1200).height(675).url()}
-                            alt={post.title}
+                            src={mainImageSrc}
+                            alt={activePost.title}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 1200px) 100vw, 1200px"
                             priority
                         />
                     </div>
                 )}
 
-                {/* Content */}
-                <div className="prose prose-stone prose-lg mx-auto font-sans focus:outline-none">
-                    <PortableText value={post.body} />
+                <div className="max-w-3xl mx-auto">
+                    <PortableText value={activePost.body} components={components} />
+
+                    <div className="mt-24 pt-12 border-t border-stone-200 flex flex-col items-center">
+                        <span className="font-serif italic text-2xl md:text-3xl text-stone-400 mb-6">Yorgancıoğlu</span>
+                        <p className="text-center font-cormorant text-xl text-stone-600 max-w-lg">
+                            "Eviniz, sizin en kişisel sanat galerinizdir. Onu sevgiyle donatın."
+                        </p>
+                    </div>
                 </div>
             </div>
         </article>
