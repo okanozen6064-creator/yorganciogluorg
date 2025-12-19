@@ -106,7 +106,7 @@ export default function ProductDetails({
                     <Truck className="w-5 h-5 text-stone-500 mt-0.5" />
                     <div>
                         <div className="text-sm font-medium text-stone-900">Ücretsiz Teslimat</div>
-                        <div className="text-xs text-stone-500">İstanbul içi nakliye</div>
+                        <div className="text-xs text-stone-500">Antalya içi nakliye</div>
                     </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -180,7 +180,7 @@ export default function ProductDetails({
                         </button>
                         <div className={`grid transition-all duration-300 ease-in-out ${openAccordion === 'delivery' ? 'grid-rows-[1fr] pb-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                             <div className="overflow-hidden space-y-2 text-stone-600 text-sm leading-relaxed">
-                                <p>Siparişiniz üzerine özel olarak üretilmektedir. Teslimat süresi ortalama 15-20 iş günüdür. İstanbul içi teslimat ve kurulum ekibimiz tarafından ücretsiz yapılmaktadır.</p>
+                                <p>Siparişiniz üzerine özel olarak üretilmektedir. Teslimat süresi ortalama 15-20 iş günüdür. Antalya içi teslimat ve kurulum ekibimiz tarafından ücretsiz yapılmaktadır.</p>
                             </div>
                         </div>
                     </div>
