@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import RoomDesignerGame from '@/components/RoomDesignerGame';
 
 interface TimeLeft {
     days: number;
@@ -17,21 +18,8 @@ const ComingSoonPage = () => {
 
     useEffect(() => {
         setMounted(true);
-        // Set target date to 5 days from now
-        // We store this in localStorage to keep the timer consistent across reloads if desired,
-        // or just reset it every time for this demo. The user asked for "5 gün olacak şekilde",
-        // simple nice approach is a fixed date in the future or relative.
-        // Let's make it fixed relative to the first load for the user, or just static 5 days ahead.
-        // Given it's a "Coming Soon" for a real launch, usually it's a specific date.
-        // But since I don't have a specific date, I'll set it to 5 days from mount.
-
-        // To avoid hydration mismatch, we calculate 5 days from a fixed point or handle it client-side.
-        // Let's use a fixed date 5 days from "now" (which will change every render if not careful).
-        // Better: Set it to a fixed date in the near future, e.g., Dec 24, 2025.
-        // Or just +5 days from current time on client mount.
-
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 5);
+        // Set target date to a fixed date (Dec 25, 2025) so it doesn't reset on reload
+        const targetDate = new Date('2025-12-25T14:00:00');
 
         const targetTime = targetDate.getTime();
 
@@ -58,52 +46,51 @@ const ComingSoonPage = () => {
     if (!mounted) return null;
 
     return (
-        <div className="relative h-screen w-full overflow-hidden bg-black text-white font-sans selection:bg-yellow-500/30">
+        <div className="relative min-h-screen w-full overflow-x-hidden bg-black text-white font-sans selection:bg-yellow-500/30">
             {/* Background Image with Overlay */}
-            <div className="absolute inset-0 z-0">
+            <div className="fixed inset-0 z-0">
                 <Image
                     src="/coming-soon-bg.png"
                     alt="Antigravity Background"
                     fill
-                    className="object-cover opacity-80"
+                    className="object-cover opacity-60"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                 <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-8">
+            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center py-12 px-4 text-center sm:px-6 lg:px-8">
 
-                {/* Floating Brand/Object Animation */}
+                {/* GAME SECTION - Primary Focus */}
                 <motion.div
-                    initial={{ y: 0 }}
-                    animate={{ y: [-10, 10, -10] }}
-                    transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                    className="mb-8"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="w-full max-w-4xl mb-12"
                 >
-                    {/* Abstract minimalist shape/logo representation if no logo provided, 
-               but we have the image. We can just use text or a glass card. */}
+                    <RoomDesignerGame />
                 </motion.div>
 
-                {/* Main Card */}
+                {/* Coming Soon Info Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="w-full max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md sm:p-12 md:p-16 lg:p-20 ring-1 ring-white/5"
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="w-full max-w-3xl rounded-3xl border border-white/5 bg-black/30 p-8 backdrop-blur-md sm:p-12 ring-1 ring-white/5"
                 >
-                    <h1 className="mb-6 text-4xl font-light tracking-tight text-white sm:text-5xl md:text-6xl">
-                        <span className="block font-medium text-yellow-500 drop-shadow-sm">Estetiğin Yeni Formuyla</span>
-                        Tanışmaya Az Kaldı
+                    <h1 className="mb-4 text-3xl font-light tracking-tight text-white sm:text-4xl md:text-5xl">
+                        <span className="block font-medium text-yellow-500 drop-shadow-sm mb-2">Estetiğin Yeni Formu</span>
+                        Çok Yakında Sizlerle
                     </h1>
 
-                    <p className="mx-auto mb-10 max-w-xl text-lg text-gray-300 sm:text-xl font-light leading-relaxed">
-                        Antigravity çok yakında sınırları zorlayan tasarımlarıyla burada olacak.
+                    <p className="mx-auto mb-8 max-w-xl text-base text-gray-400 sm:text-lg font-light leading-relaxed">
+                        Antigravity tasarımlarıyla yaşam alanınızı yeniden keşfetmeye hazır olun.
                     </p>
 
                     {/* Countdown Timer */}
-                    <div className="mb-12 grid grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                    <div className="mb-10 grid grid-cols-4 gap-3 sm:gap-6 md:gap-8 max-w-2xl mx-auto">
                         {[
                             { label: 'GÜN', value: timeLeft.days },
                             { label: 'SAAT', value: timeLeft.hours },
@@ -111,12 +98,12 @@ const ComingSoonPage = () => {
                             { label: 'SANİYE', value: timeLeft.seconds },
                         ].map((item, index) => (
                             <div key={index} className="flex flex-col items-center">
-                                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-2xl font-bold text-white shadow-inner sm:h-24 sm:w-24 sm:text-4xl backdrop-blur-sm">
+                                <div className="relative flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-xl font-bold text-white shadow-inner sm:h-20 sm:w-20 sm:text-3xl backdrop-blur-sm">
                                     {String(item.value).padStart(2, '0')}
                                     {/* Gold accent line */}
-                                    <div className="absolute bottom-0 h-1 w-1/2 rounded-full bg-yellow-500/50 blur-[2px]" />
+                                    <div className="absolute bottom-0 h-0.5 w-1/2 rounded-full bg-yellow-500/50 blur-[1px]" />
                                 </div>
-                                <span className="mt-3 text-xs font-medium tracking-widest text-gray-400 uppercase sm:text-sm">
+                                <span className="mt-2 text-[10px] font-medium tracking-widest text-gray-500 uppercase sm:text-xs">
                                     {item.label}
                                 </span>
                             </div>
@@ -129,18 +116,22 @@ const ComingSoonPage = () => {
                             <input
                                 type="email"
                                 placeholder="Açılıştan haberdar ol"
-                                className="peer w-full rounded-full border border-white/20 bg-white/5 px-6 py-4 pr-32 text-base text-white placeholder-gray-400 outline-none backdrop-blur-sm transition-all focus:border-yellow-500/50 focus:bg-white/10 focus:ring-1 focus:ring-yellow-500/30"
+                                className="peer w-full rounded-full border border-white/10 bg-white/5 px-6 py-3.5 pr-32 text-sm text-white placeholder-gray-500 outline-none backdrop-blur-sm transition-all focus:border-yellow-500/30 focus:bg-white/10 focus:ring-1 focus:ring-yellow-500/20"
                             />
                             <button
                                 type="submit"
-                                className="absolute right-1 top-1 bottom-1 rounded-full bg-white text-black px-6 text-sm font-medium transition-transform hover:scale-105 active:scale-95 disabled:opacity-70 font-semibold"
+                                className="absolute right-1 top-1 bottom-1 rounded-full bg-white text-black px-5 text-xs sm:text-sm font-bold transition-transform hover:scale-105 active:scale-95 disabled:opacity-70"
                             >
-                                Kayıt Ol
+                                KAYIT OL
                             </button>
                         </form>
                     </div>
                 </motion.div>
 
+                {/* Footer simple copyright */}
+                <div className="mt-8 text-xs text-gray-600">
+                    &copy; 2025 ALL RIGHTS RESERVED.
+                </div>
 
             </div>
         </div>
