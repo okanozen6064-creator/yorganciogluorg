@@ -3,6 +3,29 @@
 @tailwind utilities;
 
 @layer base {
+
+  /* FORCE CURSOR VISIBILITY - İMLECİ ZORLA GÖSTER */
+  html,
+  body,
+  * {
+    cursor: auto !important;
+  }
+
+  /* Link ve butonlar için el işareti */
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    cursor: pointer !important;
+  }
+
+  /* Metin alanları için text imleci */
+  input[type="text"],
+  textarea {
+    cursor: text !important;
+  }
+
   body {
     background-color: #fafaf9;
     color: #1a1a1a;
