@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import RoomDesignerGame from '@/components/RoomDesignerGame';
-import CustomCursor from '@/components/CustomCursor';
+
 
 interface TimeLeft {
     days: number;
@@ -120,7 +120,7 @@ const ComingSoonPage = () => {
             </div>
 
             {/* Ensure cursor is visible/customized */}
-            <CustomCursor />
+
         </div>
     );
 };
