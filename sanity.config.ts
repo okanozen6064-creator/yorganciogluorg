@@ -47,6 +47,17 @@ export default defineConfig({
                             .title('Blog Yazıları')
                             .schemaType('post')
                             .child(S.documentTypeList('post').title('Blog Yazıları')),
+                        S.divider(),
+                        S.listItem()
+                            .title('Site Ayarları')
+                            .schemaType('siteSettings')
+                            .child(
+                                S.editor()
+                                    .id('siteSettings')
+                                    .schemaType('siteSettings')
+                                    .documentId('siteSettings')
+                                    .title('Site Ayarları')
+                            ),
                     ])
         }),
         visionTool()
