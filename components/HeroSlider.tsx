@@ -4,8 +4,9 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import { client, urlFor } from '@/sanity/lib/client'
 
-const heroSlides = [
+const defaultSlides = [
     {
         image: '/images/slide1.jpg',
         title: 'Zarafet ve Konfor',
@@ -29,29 +30,44 @@ const heroSlides = [
 ]
 
 export default function HeroSlider() {
+    const [slides, setSlides] = useState(defaultSlides)
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isPlaying, setIsPlaying] = useState(true)
     const timerRef = useRef<NodeJS.Timeout | null>(null)
     const SLIDE_DURATION = 8000 // 8 seconds
 
     useEffect(() => {
+        const fetchSlides = async () => {
+            try {
+                const data = await client.fetch(`*[_type == "heroSlide"] | order(order asc)`)
+                if (data && data.length > 0) {
+                    setSlides(data)
+                }
+            } catch (error) {
+                console.error("Failed to fetch slides:", error)
+            }
+        }
+        fetchSlides()
+    }, [])
+
+    useEffect(() => {
         if (isPlaying) {
             timerRef.current = setInterval(() => {
-                setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+                setCurrentSlide((prev) => (prev + 1) % slides.length)
             }, SLIDE_DURATION)
         }
         return () => {
             if (timerRef.current) clearInterval(timerRef.current)
         }
-    }, [isPlaying, currentSlide])
+    }, [isPlaying, currentSlide, slides.length]) // Added slides.length dependency
 
     const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+        setCurrentSlide((prev) => (prev + 1) % slides.length)
         resetTimer()
     }
 
     const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+        setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
         resetTimer()
     }
 
@@ -59,12 +75,23 @@ export default function HeroSlider() {
         if (timerRef.current) clearInterval(timerRef.current)
         if (isPlaying) {
             timerRef.current = setInterval(() => {
-                setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+                setCurrentSlide((prev) => (prev + 1) % slides.length)
             }, SLIDE_DURATION)
         }
     }
 
     const togglePlay = () => setIsPlaying(!isPlaying)
+
+    const getImageUrl = (img: any) => {
+        if (typeof img === 'string') return img;
+        try {
+            return urlFor(img).url();
+        } catch (e) {
+            return '';
+        }
+    }
+
+    if (!slides || slides.length === 0) return null
 
     return (
         <div className="relative h-[85vh] w-full overflow-hidden bg-stone-900">
@@ -85,8 +112,8 @@ export default function HeroSlider() {
                         transition={{ duration: SLIDE_DURATION / 1000 + 2, ease: "linear" }}
                     >
                         <Image
-                            src={heroSlides[currentSlide].image}
-                            alt={heroSlides[currentSlide].title}
+                            src={getImageUrl(slides[currentSlide].image)}
+                            alt={slides[currentSlide].title || 'Hero Slide'}
                             fill
                             className="object-cover"
                             priority={true}
@@ -116,7 +143,7 @@ export default function HeroSlider() {
                                 <span className="block text-[#D4AF37] text-2xl md:text-3xl tracking-[0.5em] mb-4 font-sans font-light">
                                     YORGANCIOĞLU
                                 </span>
-                                {heroSlides[currentSlide].title}
+                                {slides[currentSlide].title}
                             </motion.h2>
 
                             <motion.div
@@ -134,7 +161,7 @@ export default function HeroSlider() {
                                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
                                 className="font-sans text-lg md:text-2xl text-stone-200 mb-10 tracking-wider font-light max-w-2xl mx-auto"
                             >
-                                {heroSlides[currentSlide].subtitle}
+                                {slides[currentSlide].subtitle}
                             </motion.p>
 
                             <motion.a
@@ -164,7 +191,7 @@ export default function HeroSlider() {
                     </button>
 
                     <div className="flex gap-4">
-                        {heroSlides.map((_, index) => (
+                        {slides.map((_, index) => (
                             <div key={index} className="relative cursor-pointer group" onClick={() => { setCurrentSlide(index); resetTimer(); }}>
                                 <div className={`h-[2px] transition-all duration-500 bg-white/30 group-hover:bg-white/60 ${index === currentSlide ? 'w-16' : 'w-8'}`}>
                                     {index === currentSlide && isPlaying && (
@@ -182,7 +209,7 @@ export default function HeroSlider() {
                     </div>
 
                     <span className="text-white/50 text-xs font-sans tracking-widest">
-                        0{currentSlide + 1} / 0{heroSlides.length}
+                        0{currentSlide + 1} / 0{slides.length}
                     </span>
                 </div>
 
