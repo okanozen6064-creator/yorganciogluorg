@@ -3,66 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-
-  /* Exclude Sanity Studio from custom cursor */
-  *:not([class^="sanity-"]):not([class*=" sanity-"]) {
-    cursor: none !important;
-  }
-
   body {
-    cursor: none;
     background-color: #fafaf9;
+    color: #1a1a1a;
   }
-
-  /* Restore cursor for Sanity Studio */
-  body:has([id="sanity"]) {
-    cursor: auto !important;
-  }
-
-  body:has([id="sanity"]) * {
-    cursor: auto !important;
-  }
-
-  a,
-  button {
-    cursor: none !important;
-  }
-}
-
-/* Custom Cursor Styles */
-.custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #292524;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.15s ease-out, width 0.15s ease-out, height 0.15s ease-out;
-  transform: translate(-50%, -50%);
-}
-
-body:has([id="sanity"]) .custom-cursor,
-body:has([id="sanity"]) .custom-cursor-dot {
-  display: none !important;
-}
-
-.custom-cursor-dot {
-  position: fixed;
-  width: 4px;
-  height: 4px;
-  background-color: #292524;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transition: transform 0.05s ease-out;
-  transform: translate(-50%, -50%);
-}
-
-.custom-cursor.hover {
-  width: 35px;
-  height: 35px;
-  background-color: rgba(41, 37, 36, 0.1);
 }
 
 :root {
@@ -80,11 +24,6 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: #1a1a1a;
-  background: #ffffff;
 }
 
 a {
