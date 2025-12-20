@@ -62,14 +62,14 @@ const ComingSoonPage = () => {
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center py-12 px-4 text-center sm:px-6 lg:px-8">
+            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center py-8 px-4 text-center sm:px-6 lg:px-8">
 
                 {/* GAME SECTION - Primary Focus */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full max-w-4xl mb-12"
+                    className="w-full max-w-4xl mb-8 sm:mb-12"
                 >
                     <RoomDesignerGame />
                 </motion.div>
@@ -79,19 +79,19 @@ const ComingSoonPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="w-full max-w-3xl rounded-3xl border border-white/5 bg-black/30 p-8 backdrop-blur-md sm:p-12 ring-1 ring-white/5"
+                    className="w-full max-w-3xl rounded-2xl sm:rounded-3xl border border-white/5 bg-black/30 p-6 sm:p-12 backdrop-blur-md ring-1 ring-white/5"
                 >
-                    <h1 className="mb-4 text-3xl font-light tracking-tight text-white sm:text-4xl md:text-5xl">
-                        <span className="block font-medium text-yellow-500 drop-shadow-sm mb-2">Estetiğin Yeni Formu</span>
+                    <h1 className="mb-4 text-2xl font-light tracking-tight text-white sm:text-4xl md:text-5xl">
+                        <span className="block font-medium text-yellow-500 drop-shadow-sm mb-2 text-lg sm:text-2xl md:text-3xl">Estetiğin Yeni Formu</span>
                         Çok Yakında Sizlerle
                     </h1>
 
-                    <p className="mx-auto mb-8 max-w-xl text-base text-gray-400 sm:text-lg font-light leading-relaxed">
+                    <p className="mx-auto mb-6 sm:mb-8 max-w-xl text-sm sm:text-base text-gray-400 font-light leading-relaxed">
                         Antigravity tasarımlarıyla yaşam alanınızı yeniden keşfetmeye hazır olun.
                     </p>
 
                     {/* Countdown Timer */}
-                    <div className="mb-10 grid grid-cols-4 gap-3 sm:gap-6 md:gap-8 max-w-2xl mx-auto">
+                    <div className="mb-6 sm:mb-10 grid grid-cols-4 gap-2 sm:gap-6 md:gap-8 max-w-2xl mx-auto">
                         {[
                             { label: 'GÜN', value: timeLeft.days },
                             { label: 'SAAT', value: timeLeft.hours },
@@ -99,12 +99,12 @@ const ComingSoonPage = () => {
                             { label: 'SANİYE', value: timeLeft.seconds },
                         ].map((item, index) => (
                             <div key={index} className="flex flex-col items-center">
-                                <div className="relative flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-xl font-bold text-white shadow-inner sm:h-20 sm:w-20 sm:text-3xl backdrop-blur-sm">
+                                <div className="relative flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-lg font-bold text-white shadow-inner sm:h-20 sm:w-20 sm:text-3xl backdrop-blur-sm">
                                     {String(item.value).padStart(2, '0')}
                                     {/* Gold accent line */}
                                     <div className="absolute bottom-0 h-0.5 w-1/2 rounded-full bg-yellow-500/50 blur-[1px]" />
                                 </div>
-                                <span className="mt-2 text-[10px] font-medium tracking-widest text-gray-500 uppercase sm:text-xs">
+                                <span className="mt-2 text-[8px] sm:text-[10px] font-medium tracking-widest text-gray-500 uppercase">
                                     {item.label}
                                 </span>
                             </div>
@@ -114,7 +114,7 @@ const ComingSoonPage = () => {
                 </motion.div>
 
                 {/* Footer simple copyright */}
-                <div className="mt-8 text-xs text-gray-600">
+                <div className="mt-6 sm:mt-8 text-[10px] sm:text-xs text-gray-600">
                     &copy; 2025 ALL RIGHTS RESERVED.
                 </div>
             </div>
