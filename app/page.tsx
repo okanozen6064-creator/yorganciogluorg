@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import RoomDesignerGame from '@/components/RoomDesignerGame';
+import CustomCursor from '@/components/CustomCursor';
 
 interface TimeLeft {
     days: number;
@@ -110,30 +111,16 @@ const ComingSoonPage = () => {
                         ))}
                     </div>
 
-                    {/* Email Input */}
-                    <div className="mx-auto w-full max-w-md">
-                        <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
-                            <input
-                                type="email"
-                                placeholder="Açılıştan haberdar ol"
-                                className="peer w-full rounded-full border border-white/10 bg-white/5 px-6 py-3.5 pr-32 text-sm text-white placeholder-gray-500 outline-none backdrop-blur-sm transition-all focus:border-yellow-500/30 focus:bg-white/10 focus:ring-1 focus:ring-yellow-500/20"
-                            />
-                            <button
-                                type="submit"
-                                className="absolute right-1 top-1 bottom-1 rounded-full bg-white text-black px-5 text-xs sm:text-sm font-bold transition-transform hover:scale-105 active:scale-95 disabled:opacity-70"
-                            >
-                                KAYIT OL
-                            </button>
-                        </form>
-                    </div>
                 </motion.div>
 
                 {/* Footer simple copyright */}
                 <div className="mt-8 text-xs text-gray-600">
                     &copy; 2025 ALL RIGHTS RESERVED.
                 </div>
-
             </div>
+
+            {/* Ensure cursor is visible/customized */}
+            <CustomCursor />
         </div>
     );
 };

@@ -54,7 +54,7 @@ const components = {
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
     const post = await getPost(params.slug)
-    const demoPost = !post ? demoPosts.find(p => p.slug.current === params.slug) : null
+    const demoPost = !post ? demoPosts.find((p: any) => p.slug.current === params.slug) : null
 
     const activePost = post || demoPost
 
