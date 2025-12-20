@@ -3,13 +3,24 @@
 @tailwind utilities;
 
 @layer base {
-  * {
+
+  /* Exclude Sanity Studio from custom cursor */
+  *:not([class^="sanity-"]):not([class*=" sanity-"]) {
     cursor: none !important;
   }
 
   body {
     cursor: none;
     background-color: #fafaf9;
+  }
+
+  /* Restore cursor for Sanity Studio */
+  body:has([id="sanity"]) {
+    cursor: auto !important;
+  }
+
+  body:has([id="sanity"]) * {
+    cursor: auto !important;
   }
 
   a,
@@ -29,6 +40,11 @@
   z-index: 9999;
   transition: transform 0.15s ease-out, width 0.15s ease-out, height 0.15s ease-out;
   transform: translate(-50%, -50%);
+}
+
+body:has([id="sanity"]) .custom-cursor,
+body:has([id="sanity"]) .custom-cursor-dot {
+  display: none !important;
 }
 
 .custom-cursor-dot {
