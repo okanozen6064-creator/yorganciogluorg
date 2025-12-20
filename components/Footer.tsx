@@ -11,13 +11,13 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-8 py-24">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                     <div className="md:col-span-1">
-                        <div className="mb-6">
-                            <h2 className="font-cormorant text-5xl font-bold text-white tracking-tight mb-2">
-                                Yorgancıoğlu
-                            </h2>
-                            <span className="font-serif text-sm tracking-[0.4em] text-stone-400 uppercase block pl-1">
-                                mobilya
-                            </span>
+                        <div className="mb-6 relative h-20 w-48">
+                            <Image
+                                src="/yorgancioglu-new-logo.png"
+                                alt="Yorgancıoğlu Mobilya"
+                                fill
+                                className="object-contain object-left"
+                            />
                         </div>
                         <p className="font-sans text-stone-400 leading-relaxed text-sm tracking-wide mb-6">
                             1985'ten beri lüks mobilya ve ev dekorasyonunda en iyisini sunuyoruz.

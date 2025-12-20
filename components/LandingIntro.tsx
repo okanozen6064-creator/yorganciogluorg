@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Playfair_Display } from 'next/font/google'
 
-const playfair = Playfair_Display({ subsets: ['latin'] })
 
 export default function LandingIntro() {
     const [show, setShow] = useState(true)
@@ -66,34 +64,34 @@ export default function LandingIntro() {
                             </motion.span>
 
                             {/* Brand Name */}
-                            <div className="overflow-hidden mb-6">
+                            <div className="overflow-hidden mb-4">
                                 <motion.h1
                                     initial={{ y: 100 }}
                                     animate={phase >= 1 ? { y: 0 } : {}}
                                     transition={{ duration: 1, ease: 'circOut' }}
-                                    className={`${playfair.className} text-5xl md:text-8xl lg:text-9xl font-bold uppercase tracking-widest text-[#D4AF37]`} // Altın rengi
+                                    className="font-orbitron text-4xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest text-[#D4AF37]" // Altın rengi
                                 >
                                     Yorgancıoğlu
                                 </motion.h1>
                             </div>
 
                             {/* Divider Line */}
-                            <motion.div
+                            {/* <motion.div
                                 initial={{ width: 0 }}
                                 animate={phase >= 2 ? { width: '100px' } : {}}
                                 transition={{ duration: 0.8 }}
                                 className="h-[1px] bg-stone-700 mb-8"
-                            />
+                            /> */}
 
                             {/* Slogan */}
-                            <div className="overflow-hidden h-16">
+                            <div className="overflow-hidden h-24">
                                 <motion.p
                                     initial={{ y: 50, opacity: 0 }}
                                     animate={phase >= 2 ? { y: 0, opacity: 1 } : {}}
                                     transition={{ duration: 0.8 }}
-                                    className="font-sans text-sm md:text-base tracking-[0.3em] uppercase text-stone-300"
+                                    className="font-allura text-5xl md:text-7xl text-white transform -rotate-2"
                                 >
-                                    Lüks Mobilya & Ev Dekorasyonu
+                                    Mobilya
                                 </motion.p>
                             </div>
                         </div>

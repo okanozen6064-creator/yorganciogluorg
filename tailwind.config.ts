@@ -21,6 +21,8 @@ const config: Config = {
                 serif: ['var(--font-playfair)', 'serif'],
                 sans: ['var(--font-inter)', 'sans-serif'],
                 cormorant: ['var(--font-cormorant)', 'serif'],
+                orbitron: ['var(--font-orbitron)', 'sans-serif'],
+                allura: ['var(--font-allura)', 'cursive'],
             },
         },
     },
