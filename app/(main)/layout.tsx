@@ -1,9 +1,9 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
-
 import LandingIntro from '@/components/LandingIntro'
 import AiAssistant from '@/components/AiAssistant'
+import ScrollToTop from '@/components/ScrollToTop'
 
 export default function MainLayout({
     children,
@@ -18,6 +18,7 @@ export default function MainLayout({
             <Footer />
             <AiAssistant />
             <FloatingWhatsApp phoneNumber="905449404910" />
+            <ScrollToTop />
         </>
     )
 }
