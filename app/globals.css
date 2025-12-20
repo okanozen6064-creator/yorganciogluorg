@@ -21,9 +21,9 @@
 /* Custom Cursor Styles */
 .custom-cursor {
   position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 2px solid #292524;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #292524;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -33,8 +33,8 @@
 
 .custom-cursor-dot {
   position: fixed;
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
   background-color: #292524;
   border-radius: 50%;
   pointer-events: none;
@@ -44,8 +44,8 @@
 }
 
 .custom-cursor.hover {
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   background-color: rgba(41, 37, 36, 0.1);
 }
 
