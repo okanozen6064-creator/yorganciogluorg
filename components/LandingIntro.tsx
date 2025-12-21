@@ -69,7 +69,7 @@ export default function LandingIntro() {
                                     initial={{ y: 100 }}
                                     animate={phase >= 1 ? { y: 0 } : {}}
                                     transition={{ duration: 1, ease: 'circOut' }}
-                                    className="font-orbitron text-4xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest text-[#D4AF37]" // Altın rengi
+                                    className="font-orbitron text-2xl sm:text-4xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest text-[#D4AF37]" // Altın rengi
                                 >
                                     YORGANCI
                                     <span className="relative inline-block mx-[1px]">
@@ -77,7 +77,7 @@ export default function LandingIntro() {
                                     </span>
                                     <span className="relative inline-block mx-[1px] group">
                                         G
-                                        <span className="absolute -top-1 left-1/2 -translate-x-1/2 text-2xl md:text-5xl font-sans font-light text-[#D4AF37]">˘</span>
+                                        <span className="absolute -top-0.5 sm:-top-1 left-1/2 -translate-x-1/2 text-lg sm:text-2xl md:text-5xl font-sans font-light text-[#D4AF37]">˘</span>
                                     </span>
                                     LU
                                 </motion.h1>
