@@ -71,7 +71,15 @@ export default function LandingIntro() {
                                     transition={{ duration: 1, ease: 'circOut' }}
                                     className="font-orbitron text-4xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest text-[#D4AF37]" // Altın rengi
                                 >
-                                    Yorgancıoğlu
+                                    YORGANCI
+                                    <span className="relative inline-block mx-[1px]">
+                                        O
+                                    </span>
+                                    <span className="relative inline-block mx-[1px] group">
+                                        G
+                                        <span className="absolute -top-1 left-1/2 -translate-x-1/2 text-2xl md:text-5xl font-sans font-light text-[#D4AF37]">˘</span>
+                                    </span>
+                                    LU
                                 </motion.h1>
                             </div>
 
