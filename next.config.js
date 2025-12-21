@@ -37,6 +37,15 @@ const nextConfig = {
             },
         ]
     },
+    async redirects() {
+        return [
+            {
+                source: '/product/destan-yatak-odasi-takimi',
+                destination: '/product/destan-yatak-odasi',
+                permanent: true,
+            },
+        ]
+    },
 }
 
 module.exports = nextConfig
