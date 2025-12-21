@@ -33,10 +33,10 @@ export default function Navbar() {
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-28">
+                <div className="flex justify-between items-center h-32 md:h-40">
                     {/* Logo */}
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0 group relative h-24 w-64 md:h-28 md:w-80 transition-opacity hover:opacity-90">
+                    <Link href="/" className="flex-shrink-0 group relative h-28 w-72 md:h-36 md:w-96 transition-opacity hover:opacity-90">
                         <Image
                             src="/yorgancioglu-new-logo.png"
                             alt="Yorgancıoğlu Mobilya"
