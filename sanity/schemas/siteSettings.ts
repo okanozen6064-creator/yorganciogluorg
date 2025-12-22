@@ -29,10 +29,10 @@ export const siteSettingsType = defineType({
             type: 'object',
             options: { collapsible: true, collapsed: false },
             fields: [
-                defineField({ name: 'phone', title: 'Telefon', type: 'string' }),
-                defineField({ name: 'whatsapp', title: 'WhatsApp Numarası (Boşluksuz)', type: 'string', description: 'Örn: 905449404910' }),
-                defineField({ name: 'email', title: 'E-posta', type: 'string' }),
-                defineField({ name: 'address', title: 'Adres', type: 'text', rows: 3 }),
+                defineField({ name: 'phone', title: 'Telefon', type: 'string', initialValue: '+90 544 940 49 10' }),
+                defineField({ name: 'whatsapp', title: 'WhatsApp Numarası (Boşluksuz)', type: 'string', description: 'Örn: 905449404910', initialValue: '905449404910' }),
+                defineField({ name: 'email', title: 'E-posta', type: 'string', initialValue: 'info@yorgancioglu.com' }),
+                defineField({ name: 'address', title: 'Adres', type: 'text', rows: 3, initialValue: 'Sütçüler, Hastane Cd. NO:32\n07320 Kepez/Antalya' }),
             ]
         }),
         defineField({
@@ -41,11 +41,11 @@ export const siteSettingsType = defineType({
             type: 'object',
             options: { collapsible: true, collapsed: false },
             fields: [
-                defineField({ name: 'instagram', title: 'Instagram URL', type: 'url' }),
+                defineField({ name: 'instagram', title: 'Instagram URL', type: 'url', initialValue: 'https://instagram.com' }),
                 defineField({ name: 'linkedin', title: 'LinkedIn URL', type: 'url' }),
-                defineField({ name: 'facebook', title: 'Facebook URL', type: 'url' }),
+                defineField({ name: 'facebook', title: 'Facebook URL', type: 'url', initialValue: 'https://facebook.com' }),
                 defineField({ name: 'pinterest', title: 'Pinterest URL', type: 'url' }),
-                defineField({ name: 'youtube', title: 'YouTube URL', type: 'url' }),
+                defineField({ name: 'youtube', title: 'YouTube URL', type: 'url', initialValue: 'https://twitter.com' }),
             ]
         }),
         defineField({

@@ -5,6 +5,8 @@ import LandingIntro from '@/components/LandingIntro'
 import AiAssistant from '@/components/AiAssistant'
 import ScrollToTop from '@/components/ScrollToTop'
 
+import DiscountPopup from '@/components/DiscountPopup'
+
 export default function MainLayout({
     children,
 }: {
@@ -13,6 +15,7 @@ export default function MainLayout({
     return (
         <>
             <LandingIntro />
+            <DiscountPopup />
             <Navbar />
             <main>{children}</main>
             <Footer />
