@@ -54,14 +54,7 @@ export default function LandingIntro() {
 
                         <div className="relative z-10 flex flex-col items-center">
                             {/* Year */}
-                            <motion.span
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={phase >= 1 ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                className="font-sans text-xs tracking-[0.5em] text-stone-400 mb-8 block"
-                            >
-                                EST. 1985
-                            </motion.span>
+
 
                             {/* Brand Name */}
                             <div className="overflow-hidden mb-4">

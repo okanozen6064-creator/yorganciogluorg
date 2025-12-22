@@ -28,7 +28,7 @@ const allura = Allura({
 })
 
 export const metadata: Metadata = {
-    title: 'Yorgancıoğlu | Lüks Mobilya ve Ev Dekorasyonu',
+    title: 'Yorgancıoğlu Mobilya',
     description: 'Yorgancıoğlu, özel tasarım mobilyalar ve lüks ev dekorasyonu çözümleri sunmaktadır. 2 yıl garanti, ücretsiz kurulum ve nakliye.',
     keywords: 'mobilya, lüks mobilya, ev dekorasyonu, özel tasarım, koltuk takımı, yatak odası, yemek odası',
 }
