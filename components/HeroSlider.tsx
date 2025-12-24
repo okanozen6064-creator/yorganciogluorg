@@ -140,9 +140,6 @@ export default function HeroSlider() {
                                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                                 className="font-serif text-5xl md:text-8xl font-medium text-white mb-6 uppercase tracking-widest leading-tight drop-shadow-2xl"
                             >
-                                <span className="block text-[#D4AF37] text-2xl md:text-3xl tracking-[0.5em] mb-4 font-sans font-light">
-                                    YORGANCIOĞLU
-                                </span>
                                 {slides[currentSlide].title}
                             </motion.h2>
 
