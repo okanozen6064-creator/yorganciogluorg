@@ -42,7 +42,7 @@ export default function CategoryCircles({ collections = [] }: CategoryCirclesPro
                         >
                             <Link href={`/collections/${collection.slug.current}`} className="flex flex-col items-center gap-3">
                                 {/* Circle Image */}
-                                <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full p-1 border border-stone-200 group-hover:border-[#D4AF37] transition-colors duration-500">
+                                <div className="relative w-20 h-20 md:w-28 md:h-28 rounded-full p-1 border border-stone-200 group-hover:border-[#D4AF37] transition-colors duration-500">
                                     <div className="relative w-full h-full rounded-full overflow-hidden">
                                         {collection.image ? (
                                             <Image

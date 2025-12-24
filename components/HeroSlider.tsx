@@ -138,7 +138,7 @@ export default function HeroSlider() {
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: -30, opacity: 0 }}
                                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                                className="font-serif text-5xl md:text-8xl font-medium text-white mb-6 uppercase tracking-widest leading-tight drop-shadow-2xl"
+                                className="font-serif text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-medium text-white mb-6 uppercase tracking-widest leading-tight drop-shadow-2xl px-2"
                             >
                                 {slides[currentSlide].title}
                             </motion.h2>
@@ -167,7 +167,7 @@ export default function HeroSlider() {
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.5, delay: 0.8 }}
-                                className="group relative overflow-hidden inline-block border border-white/40 hover:border-white text-white px-12 py-4 uppercase tracking-widest text-sm transition-all duration-300 backdrop-blur-sm"
+                                className="group relative overflow-hidden inline-block border border-white/40 hover:border-white text-white px-8 md:px-12 py-3 md:py-4 uppercase tracking-widest text-xs md:text-sm transition-all duration-300 backdrop-blur-sm"
                             >
                                 <span className="relative z-10 group-hover:text-stone-900 transition-colors duration-300 font-semibold">
                                     Koleksiyonu Keşfet
