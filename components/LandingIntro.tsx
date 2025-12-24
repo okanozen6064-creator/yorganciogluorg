@@ -83,17 +83,6 @@ export default function LandingIntro() {
                                 className="h-[1px] bg-stone-700 mb-8"
                             /> */}
 
-                            {/* Slogan */}
-                            <div className="overflow-hidden h-24">
-                                <motion.p
-                                    initial={{ y: 50, opacity: 0 }}
-                                    animate={phase >= 2 ? { y: 0, opacity: 1 } : {}}
-                                    transition={{ duration: 0.8 }}
-                                    className="font-allura text-5xl md:text-7xl text-white transform -rotate-2"
-                                >
-                                    Mobilya
-                                </motion.p>
-                            </div>
                         </div>
                     </div>
                 </motion.div>
