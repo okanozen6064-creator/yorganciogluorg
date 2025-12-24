@@ -3,7 +3,7 @@ import { deskTool } from 'sanity/desk'
 import { visionTool } from '@sanity/vision'
 import { schema } from './sanity/schema'
 
-import { StudioNavbar } from './sanity/components/StudioNavbar'
+
 
 export default defineConfig({
     name: 'default',
@@ -65,11 +65,11 @@ export default defineConfig({
 
     schema,
 
-    studio: {
-        components: {
-            navbar: StudioNavbar
-        }
-    },
+    // studio: {
+    //     components: {
+    //         navbar: StudioNavbar
+    //     }
+    // },
 
     basePath: '/studio',
 })
