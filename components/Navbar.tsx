@@ -41,7 +41,7 @@ export default function Navbar() {
                             src="/yorgancioglu-new-logo.png"
                             alt="Yorgancıoğlu Mobilya"
                             fill
-                            className="object-contain object-left"
+                            className="object-contain object-left md:object-center"
                             priority
                         />
                     </Link>
