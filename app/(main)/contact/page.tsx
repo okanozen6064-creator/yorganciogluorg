@@ -78,7 +78,7 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="font-semibold text-stone-900 mb-2">Adres</h3>
                                         <p className="font-sans text-stone-600 text-lg leading-relaxed">
-                                            Sütçüler, Şehit Astsubay Ömer Halisdemir Cad. Kepez Devlet Hastanesi Batı Yönü, Kepez / Antalya
+                                            Sütçüler Mah. Şehit Astsubay Ömer Halisdemir Cad. No: 32, (Kepez Devlet Hastanesi Batı Kısmı) Kepez / Antalya
                                         </p>
                                     </div>
                                 </div>
