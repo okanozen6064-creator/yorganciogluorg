@@ -33,7 +33,7 @@ export default function Navbar() {
                 }`}
         >
             <div className="max-w-[99%] w-full mx-auto px-1 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-32 md:h-40">
+                <div className="flex justify-between items-center h-36 md:h-44">
                     {/* Logo */}
                     {/* Logo */}
                     <Link href="/" className="flex-shrink-0 group relative h-32 w-[85vw] max-w-[24rem] sm:h-32 sm:w-80 md:h-56 md:w-[40rem] transition-opacity hover:opacity-90">
@@ -41,7 +41,7 @@ export default function Navbar() {
                             src="/yorgancioglu-new-logo.png"
                             alt="Yorgancıoğlu Mobilya"
                             fill
-                            className="object-contain"
+                            className="object-contain object-left"
                             priority
                         />
                     </Link>
