@@ -32,11 +32,11 @@ export default function Navbar() {
                 : 'bg-transparent'
                 }`}
         >
-            <div className="max-w-[95%] w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[98%] w-full mx-auto px-2 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-32 md:h-40">
                     {/* Logo */}
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0 group relative h-20 w-48 sm:h-24 sm:w-64 md:h-44 md:w-[30rem] transition-opacity hover:opacity-90">
+                    <Link href="/" className="flex-shrink-0 group relative h-24 w-56 sm:h-28 sm:w-72 md:h-48 md:w-[34rem] transition-opacity hover:opacity-90">
                         <Image
                             src="/yorgancioglu-new-logo.png"
                             alt="Yorgancıoğlu Mobilya"
