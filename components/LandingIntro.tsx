@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 
 export default function LandingIntro() {
@@ -57,23 +58,21 @@ export default function LandingIntro() {
 
 
                             {/* Brand Name */}
-                            <div className="overflow-hidden mb-4">
-                                <motion.h1
-                                    initial={{ y: 100 }}
-                                    animate={phase >= 1 ? { y: 0 } : {}}
-                                    transition={{ duration: 1, ease: 'circOut' }}
-                                    className="font-orbitron text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-widest text-[#D4AF37]" // Altın rengi
+                            <div className="overflow-visible mb-8">
+                                <motion.div
+                                    initial={{ scale: 0.5, opacity: 0 }}
+                                    animate={phase >= 1 ? { scale: 1.5, opacity: 1 } : {}}
+                                    transition={{ duration: 1.5, ease: 'easeOut' }}
+                                    className="relative w-64 h-32 md:w-96 md:h-48"
                                 >
-                                    YORGANCI
-                                    <span className="relative inline-block mx-[1px]">
-                                        O
-                                    </span>
-                                    <span className="relative inline-block mx-[1px] group">
-                                        G
-                                        <span className="absolute -top-0.5 sm:-top-1 left-1/2 -translate-x-1/2 text-lg sm:text-2xl md:text-4xl font-sans font-light text-[#D4AF37]">˘</span>
-                                    </span>
-                                    LU
-                                </motion.h1>
+                                    <Image
+                                        src="/yorgancioglu-new-logo.png"
+                                        alt="Yorgancıoğlu Mobilya"
+                                        fill
+                                        className="object-contain"
+                                        priority
+                                    />
+                                </motion.div>
                             </div>
 
                             {/* Divider Line */}
