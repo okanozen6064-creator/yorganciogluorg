@@ -69,7 +69,13 @@ export default function AiAssistant() {
                     botResponse.text = 'Sizi kataloğa yönlendiriyorum...'
                     break
                 case 'link_map':
-                    window.open('https://maps.app.goo.gl/kWrGd3xPiKgMoUD77', '_blank')
+                    // Check if the user is on an Apple device
+                    const isAppleDevice = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+                    if (isAppleDevice) {
+                        window.open('https://maps.apple.com/p/-W-6a~j.~H_gh0bu', '_blank');
+                    } else {
+                        window.open('https://maps.app.goo.gl/kWrGd3xPiKgMoUD77', '_blank');
+                    }
                     botResponse.text = 'Haritalarda açıldı.'
                     break
                 case 'link_whatsapp':
