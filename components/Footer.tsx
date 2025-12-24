@@ -76,7 +76,7 @@ export default function Footer() {
                             <li className="flex items-start gap-3">
                                 <MapPin className="w-5 h-5 text-stone-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                                 <span className="font-sans text-stone-400 text-base leading-relaxed tracking-wide">
-                                    Sütçüler, Şehit Astsubay ömer halisdemir caddesi Kepez devlet yhastanesi batı yönü Kepez Antalya
+                                    Sütçüler, Şehit Astsubay Ömer Halisdemir Cad. Kepez Devlet Hastanesi Batı Yönü, Kepez / Antalya
                                 </span>
                             </li>
                             <li className="flex items-center gap-3">
