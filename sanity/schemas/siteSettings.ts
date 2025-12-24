@@ -32,7 +32,7 @@ export const siteSettingsType = defineType({
                 defineField({ name: 'phone', title: 'Telefon', type: 'string', initialValue: '+90 544 940 49 10' }),
                 defineField({ name: 'whatsapp', title: 'WhatsApp Numarası (Boşluksuz)', type: 'string', description: 'Örn: 905449404910', initialValue: '905449404910' }),
                 defineField({ name: 'email', title: 'E-posta', type: 'string', initialValue: '07yorgancioglumobilya@gmail.com' }),
-                defineField({ name: 'address', title: 'Adres', type: 'text', rows: 3, initialValue: 'Sütçüler, Hastane Cd. NO:32\n07320 Kepez/Antalya' }),
+                defineField({ name: 'address', title: 'Adres', type: 'text', rows: 3, initialValue: 'Sütçüler, Şehit Astsubay ömer halisdemir caddesi Kepez devlet yhastanesi batı yönü Kepez Antalya' }),
             ]
         }),
         defineField({

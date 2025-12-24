@@ -54,7 +54,7 @@ export default function AiAssistant() {
                     botResponse.options = [{ label: 'Kataloğa Git', action: 'link_catalog' }]
                     break
                 case 'location':
-                    botResponse.text = 'Mağazamız Antalya Muratpaşa\'da bulunuyor. Tam konum bilgisi ister misiniz?'
+                    botResponse.text = 'Mağazamız Antalya Kepez\'de, Şehit Astsubay Ömer Halisdemir Caddesi üzerinde bulunuyor. Tam konum bilgisi ister misiniz?'
                     botResponse.options = [
                         { label: 'Konumu Göster', action: 'link_map' },
                         { label: 'Başka Bir Konu', action: 'reset' }
@@ -69,7 +69,7 @@ export default function AiAssistant() {
                     botResponse.text = 'Sizi kataloğa yönlendiriyorum...'
                     break
                 case 'link_map':
-                    window.open('https://goo.gl/maps/example', '_blank') // Replace with real map link if available
+                    window.open('https://maps.app.goo.gl/kWrGd3xPiKgMoUD77', '_blank')
                     botResponse.text = 'Haritalarda açıldı.'
                     break
                 case 'link_whatsapp':
@@ -145,8 +145,8 @@ export default function AiAssistant() {
                                     className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                                 >
                                     <div className={`max-w-[80%] rounded-2xl p-3 text-sm ${msg.sender === 'user'
-                                            ? 'bg-stone-900 text-white rounded-tr-none'
-                                            : 'bg-white text-stone-800 shadow-sm border border-stone-100 rounded-tl-none'
+                                        ? 'bg-stone-900 text-white rounded-tr-none'
+                                        : 'bg-white text-stone-800 shadow-sm border border-stone-100 rounded-tl-none'
                                         }`}>
                                         <p>{msg.text}</p>
 
