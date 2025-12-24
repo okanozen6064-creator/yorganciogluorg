@@ -77,9 +77,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-stone-900 mb-2">Adres</h3>
-                                        <p className="font-sans text-stone-600 leading-relaxed">
-                                            Örnek Mahalle, Mobilya Sokak No: 15<br />
-                                            Muratpaşa, Antalya
+                                        <p className="font-sans text-stone-600 text-lg leading-relaxed">
+                                            Sütçüler, Şehit Astsubay ömer halisdemir caddesi Kepez devlet yhastanesi batı yönü Kepez Antalya
                                         </p>
                                     </div>
                                 </div>
@@ -102,8 +101,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-stone-900 mb-2">E-posta</h3>
-                                        <a href="mailto:info@yorgancioglu.com" className="font-sans text-stone-600 hover:text-stone-900 transition-colors">
-                                            info@yorgancioglu.com
+                                        <a href="mailto:07yorgancioglumobilya@gmail.com" className="font-sans text-stone-600 hover:text-stone-900 transition-colors">
+                                            07yorgancioglumobilya@gmail.com
                                         </a>
                                     </div>
                                 </div>
@@ -116,7 +115,7 @@ export default function ContactPage() {
                                         <h3 className="font-semibold text-stone-900 mb-2">Çalışma Saatleri</h3>
                                         <p className="font-sans text-stone-600 leading-relaxed">
                                             Pazartesi - Cumartesi: 09:00 - 19:00<br />
-                                            Pazar: 10:00 - 18:00
+                                            Pazar: 13:00 - 19:00
                                         </p>
                                     </div>
                                 </div>

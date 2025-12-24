@@ -75,9 +75,8 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
                                 <MapPin className="w-5 h-5 text-stone-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
-                                <span className="font-sans text-stone-400 text-sm leading-relaxed tracking-wide">
-                                    Sütçüler, Hastane Cd. NO:32<br />
-                                    07320 Kepez/Antalya
+                                <span className="font-sans text-stone-400 text-base leading-relaxed tracking-wide">
+                                    Sütçüler, Şehit Astsubay ömer halisdemir caddesi Kepez devlet yhastanesi batı yönü Kepez Antalya
                                 </span>
                             </li>
                             <li className="flex items-center gap-3">
@@ -88,8 +87,8 @@ export default function Footer() {
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="w-5 h-5 text-stone-500" strokeWidth={1.5} />
-                                <a href="mailto:info@yorgancioglu.com" className="font-sans text-stone-400 hover:text-stone-100 transition-colors duration-200 text-sm tracking-wide">
-                                    info@yorgancioglu.com
+                                <a href="mailto:07yorgancioglumobilya@gmail.com" className="font-sans text-stone-400 hover:text-stone-100 transition-colors duration-200 text-sm tracking-wide">
+                                    07yorgancioglumobilya@gmail.com
                                 </a>
                             </li>
                         </ul>
